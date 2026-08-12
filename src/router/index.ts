@@ -7,19 +7,19 @@ const router = createRouter({
       path: '/',
       name: 'landing',
       component: () => import('@/views/LandingView.vue'),
-      meta: { title: 'INBI · Внутренняя алхимия' },
+      meta: { title: 'm13 · Внутренняя алхимия' },
     },
     {
       path: '/path',
       name: 'path',
       component: () => import('@/views/StructureView.vue'),
-      meta: { title: 'Структура знаний · INBI' },
+      meta: { title: 'Структура знаний · m13' },
     },
     {
       path: '/cabinet',
       name: 'cabinet',
       component: () => import('@/views/CabinetView.vue'),
-      meta: { title: 'Личный кабинет · INBI' },
+      meta: { title: 'Личный кабинет · m13' },
     },
   ],
   scrollBehavior(to, _from, saved) {
@@ -30,7 +30,7 @@ const router = createRouter({
 })
 
 router.afterEach((to) => {
-  const title = (to.meta.title as string) || 'INBI'
+  const title = (to.meta.title as string) || 'm13'
   document.title = title
 })
 

@@ -4,10 +4,10 @@
   <footer class="footer">
     <div class="footer__inner container">
       <div class="footer__brand">
-        <span class="footer__seal">丹</span>
+        <span class="footer__seal">m</span>
         <div>
-          <p class="footer__name">INBI</p>
-          <p class="footer__tag">Внутренняя даосская алхимия · в память об Учителе</p>
+          <p class="footer__name">m13</p>
+          <p class="footer__tag">Устная передача внутренней алхимии · в память об Учителе</p>
         </div>
       </div>
 
@@ -28,7 +28,7 @@
       </div>
     </div>
     <div class="footer__bottom container">
-      <p>© {{ new Date().getFullYear() }} INBI. Часть знаний — бесплатно. Доступ к глубине — по подписке.</p>
+      <p>© {{ new Date().getFullYear() }} m13. Часть знаний — бесплатно. Доступ к глубине — по подписке.</p>
     </div>
   </footer>
 </template>
@@ -60,14 +60,16 @@
     height: 2.75rem;
     background: var(--cinnabar-deep);
     color: var(--bone);
-    font-family: var(--font-cn);
-    font-size: 1.2rem;
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
   }
 
   &__name {
     font-family: var(--font-display);
     font-size: 1.5rem;
-    letter-spacing: 0.16em;
+    letter-spacing: 0.08em;
     color: var(--bone);
   }
 

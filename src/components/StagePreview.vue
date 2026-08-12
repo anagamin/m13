@@ -12,7 +12,7 @@ defineProps<{ stage: Stage }>()
     </div>
     <h3 class="stage__name">{{ stage.name }}</h3>
     <p class="stage__donghua">
-      В дунхуа: <em>{{ stage.donghua }}</em>
+      Ориентир: <em>{{ stage.donghua }}</em>
     </p>
     <p class="stage__summary">{{ stage.summary }}</p>
     <p class="stage__duration">{{ stage.duration }}</p>

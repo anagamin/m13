@@ -12,15 +12,15 @@ export const proofs: ProofItem[] = [
     id: 'p1',
     type: 'video',
     title: 'Что такое реальная культивация',
-    subtitle: 'Введение в нэй дан и связь с дунхуа',
+    subtitle: 'Устная традиция и метод внутренней алхимии',
     duration: '12:40',
     free: true,
   },
   {
     id: 'p2',
     type: 'video',
-    title: 'Учение Чжунли Цюаня',
-    subtitle: 'Четыре этапа пути — обзор системы',
+    title: 'Уровни пути культивации',
+    subtitle: 'От красного талисмана к золотой скрижали',
     duration: '18:05',
     free: true,
   },
@@ -35,7 +35,7 @@ export const proofs: ProofItem[] = [
   {
     id: 'p4',
     type: 'video',
-    title: 'Демонстрация: сгущение ци',
+    title: 'Демонстрация: сгущение ци-цзин',
     subtitle: 'Пруф-практика красного талисмана',
     duration: '09:32',
     free: true,
@@ -60,7 +60,7 @@ export const lessons: Lesson[] = [
     duration: '14:20',
     free: true,
     completed: true,
-    description: 'Зачем нужна подготовка и что значит «сгустить ци».',
+    description: 'Зачем нужна подготовка к алхимии и что значит «сгустить ци».',
   },
   {
     id: 'l2',
@@ -74,11 +74,11 @@ export const lessons: Lesson[] = [
   {
     id: 'l3',
     stageId: 'red-talisman',
-    title: 'Ци как эссенция',
+    title: 'Ци-цзин: удержание и сгущение',
     duration: '16:48',
     free: true,
     completed: false,
-    description: 'Почему сейчас ци выше цзин, и что такое ци-цзин.',
+    description: 'Начало культивационных практик: энергия Земли, которую можно удержать.',
   },
   {
     id: 'l4',
@@ -110,7 +110,7 @@ export const lessons: Lesson[] = [
     title: 'Обзор белой пагоды',
     duration: '15:40',
     free: false,
-    description: 'Перестройка природы: опора с ци на цзин.',
+    description: 'Три точки опоры: запуск основного алхимического процесса.',
   },
   {
     id: 'l8',
@@ -125,7 +125,7 @@ export const lessons: Lesson[] = [
 export const subscriptionBenefits = [
   'Доступ ко всем практикам красного талисмана',
   'Ежемесячные разборы и ответы мастеров',
-  'Материалы по девяти энергиям',
+  'Материалы по девяти энергиям и трём пространствам',
   'Право сдать онлайн-экзамен на ускорение',
   'Путь к статусу инструктора',
 ]

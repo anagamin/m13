@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import { energies, stages } from '@/data/stages'
+import { approaches, energies, stages } from '@/data/stages'
 import type { Stage } from '@/data/stages'
 
 const activeId = ref(stages[0].id)
@@ -21,8 +21,8 @@ const colorMap: Record<string, string> = {
         <p class="section-label">Карта знания</p>
         <h1 class="structure__title">Структура пути культивации</h1>
         <p class="structure__lead">
-          Четыре глобальных этапа учения бессмертного Чжунли Цюаня и учение о девяти энергиях — каркас
-          всей системы INBI.
+          Три пространства → уровни пути → эликсир. Каркас метода: Земля, Небо и Человек; четыре этапа
+          превращений; создание и усвоение эликсиров как суть культивации.
         </p>
       </div>
     </header>
@@ -30,10 +30,6 @@ const colorMap: Record<string, string> = {
     <!-- Vertical path infographic -->
     <section class="path-map">
       <div class="container">
-        <div class="path-map__track" aria-hidden="true">
-          <div class="path-map__line" />
-        </div>
-
         <ol class="path-map__steps">
           <li
             v-for="stage in stages"
@@ -88,12 +84,16 @@ const colorMap: Record<string, string> = {
     <section class="compare">
       <div class="container">
         <p class="section-label">Соответствие</p>
-        <h2 class="section-title">Реальный путь ↔ уровни дунхуа</h2>
+        <h2 class="section-title">Этапы пути ↔ ориентиры дунхуа</h2>
+        <p class="section-lead">
+          Лёгкое сопоставление для ориентира. Сами уровни — конкретные состояния практикующего, а не
+          виртуальные ранги.
+        </p>
 
         <div class="compare__table" role="table" aria-label="Сравнение этапов">
           <div class="compare__row compare__row--head" role="row">
-            <div role="columnheader">Этап INBI</div>
-            <div role="columnheader">В дунхуа</div>
+            <div role="columnheader">Этап m13</div>
+            <div role="columnheader">Ориентир</div>
             <div role="columnheader">Суть</div>
           </div>
           <div
@@ -114,14 +114,35 @@ const colorMap: Record<string, string> = {
       </div>
     </section>
 
+    <!-- Three approaches -->
+    <section class="approaches">
+      <div class="container">
+        <p class="section-label">Подходы</p>
+        <h2 class="section-title">Три пути восьми бессмертных</h2>
+        <p class="section-lead">
+          Процесс культивации един. Подход выбирается по пренатальным особенностям — и в реальности
+          пути всегда комбинируются.
+        </p>
+
+        <div class="approaches__grid">
+          <article v-for="a in approaches" :key="a.id" class="approaches__item">
+            <p class="approaches__cn">{{ a.nameCn }}</p>
+            <h3 class="approaches__name">{{ a.name }}</h3>
+            <p class="approaches__essence">{{ a.essence }}</p>
+            <p class="approaches__practice">{{ a.practice }}</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
     <!-- Nine energies infographic -->
     <section class="nine">
       <div class="container">
         <p class="section-label">Девять энергий</p>
-        <h2 class="section-title">Матрица превращений</h2>
+        <h2 class="section-title">Матрица взаимодействий</h2>
         <p class="section-lead">
-          Три сокровища — ци, цзин, шэнь — и девять направлений их взаимодействия. Начало практики —
-          ци-цзин, сгущение эссенции.
+          На взаимодействии трёх пространств рождается идея о девяти энергиях. С разной позиции
+          восприятия понимание отличается — ниже опорная схема.
         </p>
 
         <div class="nine__matrix" role="list">
@@ -141,28 +162,42 @@ const colorMap: Record<string, string> = {
 
         <aside class="nine__note">
           <p>
-            <strong>Важно:</strong> в эпоху расцвета практик цзин стояла выше ци. Сейчас — наоборот: многие
-            знания утеряны или переформатированы. Мы возвращаем прямое понимание ци как эссенции.
+            <strong>Важно:</strong> энергии, меридианы и подобные понятия — метафоры. Их не стоит
+            воспринимать буквально и строить из них описательную модель. Они нужны, чтобы дать опору
+            практике. Реальное понимание вырастает из самой практики.
           </p>
         </aside>
       </div>
     </section>
 
-    <!-- Red talisman deep dive -->
+    <!-- Elixir essence -->
+    <section class="elixir">
+      <div class="narrow">
+        <p class="section-label">Суть метода</p>
+        <h2 class="section-title">Создание и усвоение эликсиров</h2>
+        <p>
+          Эликсир — триединство Неба, Земли и Человека: ртуть (материал), сера (направление), киноварь
+          (процесс преобразования). Это автономно циркулирующее усилие, способное изменять все свойства
+          человека. Познавший эликсир — познал культивацию.
+        </p>
+      </div>
+    </section>
+
+    <!-- Red talisman / CTA -->
     <section class="red-focus">
       <div class="container red-focus__grid">
         <div>
           <p class="section-label">Старт</p>
           <h2 class="section-title">Красный талисман — ваш первый горизонт</h2>
           <p>
-            Основной этап для начала практикования. Огромное количество практик, направлений и задач:
-            подготовить тело и сгустить ци. Срок — от года до многих лет: зависят способности и здоровье.
+            Подготовка к алхимии: гармония существования, первый материал и инструментарий. Срок
+            индивидуален — для средне-талантливого мужчины 30–40 лет обычно 1–3 года.
           </p>
           <p>
-            Мужчина 30–40 лет без проблем со здоровьем может пройти этап за год. С навыком цигун — быстрее.
-            Для ускорения доступа к следующим уровням — онлайн-экзамен.
+            Обучение начинается в личном кабинете. Часть знаний открыта бесплатно. С навыком цигун
+            онлайн-экзамен ускорит доступ к следующим уровням.
           </p>
-          <RouterLink to="/cabinet" class="btn btn--cinnabar">Открыть бесплатные уроки</RouterLink>
+          <RouterLink to="/cabinet" class="btn btn--cinnabar">Открыть обучение</RouterLink>
         </div>
         <div class="red-focus__visual" aria-hidden="true">
           <div class="red-focus__ring" />
@@ -191,7 +226,7 @@ const colorMap: Record<string, string> = {
   }
 
   &__lead {
-    max-width: 36rem;
+    max-width: 38rem;
     font-size: 1.1rem;
   }
 }
@@ -377,8 +412,52 @@ const colorMap: Record<string, string> = {
   }
 }
 
+.approaches {
+  padding: var(--space-2xl) 0;
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-lg);
+    margin-top: var(--space-md);
+  }
+
+  &__item {
+    padding-top: 1rem;
+    border-top: 1px solid rgba(230, 223, 210, 0.1);
+  }
+
+  &__cn {
+    font-family: var(--font-cn);
+    font-size: 1.1rem;
+    letter-spacing: 0.15em;
+    color: var(--cinnabar-bright);
+    margin-bottom: 0.35rem;
+  }
+
+  &__name {
+    font-family: var(--font-display);
+    font-size: 1.35rem;
+    color: var(--bone);
+    margin-bottom: 0.75rem;
+    font-weight: 500;
+  }
+
+  &__essence {
+    font-size: 0.95rem;
+    color: var(--bone-dim);
+    margin-bottom: 0.85rem;
+  }
+
+  &__practice {
+    font-size: 0.8rem;
+    color: var(--ash);
+  }
+}
+
 .nine {
   padding: var(--space-2xl) 0;
+  background: rgba(14, 18, 24, 0.35);
 
   &__matrix {
     display: grid;
@@ -437,6 +516,20 @@ const colorMap: Record<string, string> = {
       color: var(--gold);
       font-weight: 500;
     }
+  }
+}
+
+.elixir {
+  padding: var(--space-xl) 0;
+  text-align: center;
+
+  .section-title {
+    font-size: clamp(1.75rem, 3vw, 2.5rem);
+  }
+
+  p:last-child {
+    max-width: 38rem;
+    margin-inline: auto;
   }
 }
 
@@ -502,7 +595,8 @@ const colorMap: Record<string, string> = {
 
   .path-detail__cols,
   .red-focus__grid,
-  .compare__row {
+  .compare__row,
+  .approaches__grid {
     grid-template-columns: 1fr;
   }
 

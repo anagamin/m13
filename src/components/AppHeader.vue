@@ -25,9 +25,9 @@ onUnmounted(() => {
   <header class="header" :class="{ 'header--scrolled': scrolled || compact, 'header--compact': compact }">
     <div class="header__inner container">
       <RouterLink to="/" class="logo">
-        <span class="logo__seal" aria-hidden="true">丹</span>
+        <span class="logo__seal" aria-hidden="true">m</span>
         <span class="logo__text">
-          <span class="logo__brand">INBI</span>
+          <span class="logo__brand">m13</span>
           <span class="logo__sub">內丹 · нэй дан</span>
         </span>
       </RouterLink>
@@ -81,8 +81,10 @@ onUnmounted(() => {
     place-items: center;
     width: 2.4rem;
     height: 2.4rem;
-    font-family: var(--font-cn);
-    font-size: 1.15rem;
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
     color: var(--bone);
     background: var(--cinnabar);
     border-radius: var(--radius-sm);
@@ -99,7 +101,7 @@ onUnmounted(() => {
     font-family: var(--font-display);
     font-size: 1.35rem;
     font-weight: 600;
-    letter-spacing: 0.18em;
+    letter-spacing: 0.08em;
     color: var(--bone);
   }
 

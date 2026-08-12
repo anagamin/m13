@@ -54,17 +54,17 @@ const spaces = [
       </div>
 
       <div class="hero__content container">
-        <p class="hero__brand reveal">m13 · 內丹</p>
+        <p class="hero__brand reveal">m13 · 內丹 · онлайн-школа</p>
         <h1 class="hero__title reveal reveal-delay-1">
           Устная передача<br />
           <span>внутренней алхимии</span>
         </h1>
         <p class="hero__lead reveal reveal-delay-2">
-          Метод культивации древнего Китая — через практику, а не через описания. Обучение — в личном
-          кабинете.
+          Онлайн-обучение методу культивации древнего Китая — через практику, а не через описания.
+          Всё проходит в личном кабинете.
         </p>
         <div class="hero__cta reveal reveal-delay-3">
-          <RouterLink to="/cabinet" class="btn btn--cinnabar">Начать обучение</RouterLink>
+          <RouterLink to="/cabinet" class="btn btn--cinnabar">Начать онлайн-обучение</RouterLink>
           <RouterLink to="/path" class="btn btn--ghost">Структура пути</RouterLink>
         </div>
       </div>
@@ -156,6 +156,14 @@ const spaces = [
             <p class="spaces__text">{{ s.text }}</p>
           </article>
         </div>
+        <aside class="spaces__note">
+          <p>
+            Со временем в даосских школах произошла подмена: вместо развития
+            <strong>цзин</strong> стали развивать уровень <strong>ци</strong>, а цзин воспринимать
+            лишь как сексуальную эссенцию. Так практика привязалась к земному уровню — и утратила
+            способность выйти за его предел. Для алхимии опора — именно цзин, пространство Человека.
+          </p>
+        </aside>
       </div>
     </section>
 
@@ -250,8 +258,8 @@ const spaces = [
           <p class="section-label">Старт обучения</p>
           <h2 class="section-title">Часть знаний — бесплатно. Глубина — в кабинете.</h2>
           <p class="section-lead">
-            Зарегистрируйтесь в личном кабинете: там начинается само обучение. Попробуйте. Поймите, ваше
-            ли это. Затем — платные уровни и годовая подписка.
+            Онлайн-школа: зарегистрируйтесь в личном кабинете — там начинается само обучение.
+            Попробуйте. Поймите, ваше ли это. Затем — платные уровни и годовая подписка.
           </p>
           <ul class="offer__list">
             <li v-for="b in subscriptionBenefits" :key="b">{{ b }}</li>
@@ -261,7 +269,7 @@ const spaces = [
           </p>
         </div>
         <div class="offer__panel">
-          <p class="offer__tier">Личный кабинет</p>
+          <p class="offer__tier">Онлайн · личный кабинет</p>
           <p class="offer__price">Обучение</p>
           <p class="offer__note">Бесплатный вход · подписка подключится позже</p>
           <RouterLink to="/cabinet" class="btn btn--cinnabar offer__btn">Войти в кабинет</RouterLink>
@@ -491,6 +499,24 @@ const spaces = [
   &__text {
     font-size: 0.95rem;
     color: var(--bone-dim);
+  }
+
+  &__note {
+    margin-top: var(--space-lg);
+    padding: 1.25rem 0 0;
+    border-top: 1px solid rgba(184, 151, 74, 0.22);
+    max-width: 42rem;
+
+    p {
+      font-size: 0.98rem;
+      color: var(--bone-dim);
+      line-height: 1.65;
+    }
+
+    strong {
+      color: var(--gold);
+      font-weight: 500;
+    }
   }
 }
 

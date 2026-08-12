@@ -28,7 +28,7 @@ onUnmounted(() => {
         <span class="logo__seal" aria-hidden="true">m</span>
         <span class="logo__text">
           <span class="logo__brand">m13</span>
-          <span class="logo__sub">內丹 · нэй дан</span>
+          <span class="logo__sub">內丹 · онлайн</span>
         </span>
       </RouterLink>
 

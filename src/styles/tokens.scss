@@ -1,0 +1,57 @@
+/// Brand & atmosphere — ink, cinnabar, gold leaf
+:root {
+  --ink: #07090c;
+  --ink-elevated: #0e1218;
+  --ink-soft: #161b24;
+  --mist: #2a3340;
+  --mist-light: #3d4a5c;
+
+  --cinnabar: #b83a2a;
+  --cinnabar-bright: #d44836;
+  --cinnabar-deep: #8a2a1e;
+
+  --gold: #b8974a;
+  --gold-bright: #d4b56a;
+  --gold-dim: #7a6530;
+
+  --jade: #3d6b5a;
+  --jade-bright: #5a9a82;
+
+  --pagoda: #cfc8bc;
+  --tablet: #c9a84c;
+
+  --bone: #e6dfd2;
+  --bone-dim: #b8b0a2;
+  --ash: #7a756e;
+
+  --font-display: 'Cormorant Garamond', 'Times New Roman', serif;
+  --font-body: 'Outfit', system-ui, sans-serif;
+  --font-cn: 'Noto Sans SC', 'PingFang SC', sans-serif;
+
+  --space-xs: 0.5rem;
+  --space-sm: 1rem;
+  --space-md: 1.5rem;
+  --space-lg: 2.5rem;
+  --space-xl: 4rem;
+  --space-2xl: 7rem;
+
+  --radius-sm: 2px;
+  --radius-md: 4px;
+
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-ink: cubic-bezier(0.4, 0, 0.2, 1);
+
+  --header-h: 4.5rem;
+  --max-w: 72rem;
+  --max-w-narrow: 42rem;
+}
+
+@mixin container {
+  width: min(100% - 2.5rem, var(--max-w));
+  margin-inline: auto;
+}
+
+@mixin narrow {
+  width: min(100% - 2.5rem, var(--max-w-narrow));
+  margin-inline: auto;
+}

@@ -56,8 +56,8 @@ const spaces = [
       <div class="hero__content container">
         <p class="hero__brand reveal">m13 · 內丹 · онлайн-школа</p>
         <h1 class="hero__title reveal reveal-delay-1">
-          Устная передача<br />
-          <span>культивации</span>
+          Живые знания по <span>культивации</span>
+          
         </h1>
         <p class="hero__lead reveal reveal-delay-2">
           Онлайн-обучение методу культивации (внутренней алхимии) древнего Китая — через практику, а не
@@ -80,7 +80,7 @@ const spaces = [
           <p class="section-label">Кто мы</p>
           <h2 class="section-title">Носители устной традиции культивации</h2>
           <p class="section-lead">
-            Наш метод основан на устной передаче традиции культивации (внутренней алхимии) древнего
+            Наш метод основан на устной передаче традиции внутренней алхимии древнего
             Китая. В основе лежат Школы Небесных Наставников (天師道) и Школа Высшей Чистоты (上清).
             Также используется учение о девяти сокровищах.
           </p>
@@ -88,7 +88,7 @@ const spaces = [
             Ещё одна опора — учение о восьми бессмертных: каждый представляет свой подход к практике.
             Реальная практика — совмещение всех подходов в соответствии с особенностями организма
             отдельного практикующего. Мы открываем часть системы
-            <strong>бесплатно</strong> — чтобы вы поняли, ваше это или нет. В память об Учителе.
+            <strong>бесплатно</strong> — чтобы вы поняли, ваше это или нет.
           </p>
         </div>
       </div>
@@ -111,7 +111,7 @@ const spaces = [
           </p>
           <p>
             Наша задача — дать вам эти практики. Ваша — начать их повторять, постепенно раскрывая
-            понимание и мир дунхуа. А поскольку вы уже увлекаетесь дунхуа и понимаете метафоры и образы,
+            понимание и мир культивации. А поскольку вы уже увлекаетесь дунхуа и понимаете метафоры и образы,
             ликбез «что такое культивация» вам не нужен.
           </p>
           <p>
@@ -207,14 +207,21 @@ const spaces = [
     <section class="paths">
       <div class="container">
         <p class="section-label">Подходы</p>
-        <h2 class="section-title">Три пути восьми бессмертных</h2>
+        <h2 class="section-title">Восемь путей бессмертных</h2>
         <p class="section-lead">
-          Процесс культивации един, но подход зависит от пренатальных особенностей. В реальности пути
-          всегда комбинируются.
+          Знания метода делятся на восемь направлений. Все опираются на одни принципы, но у каждого свой
+          акцент: природа, энергия, структура, дух. Подход зависит от пренатальных особенностей — в
+          практике пути комбинируются. Основной для большинства — геометрия Люй Дунбиня.
         </p>
         <div class="paths__grid">
-          <article v-for="a in approaches" :key="a.id" class="paths__item">
+          <article
+            v-for="a in approaches"
+            :key="a.id"
+            class="paths__item"
+            :class="{ 'paths__item--primary': a.primary }"
+          >
             <p class="paths__cn">{{ a.nameCn }}</p>
+            <p class="paths__dir">{{ a.direction }}</p>
             <h3 class="paths__name">{{ a.name }}</h3>
             <p class="paths__essence">{{ a.essence }}</p>
             <p class="paths__practice">{{ a.practice }}</p>
@@ -575,7 +582,7 @@ const spaces = [
 
   &__grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: var(--space-lg);
     margin-top: var(--space-md);
   }
@@ -583,6 +590,10 @@ const spaces = [
   &__item {
     padding-top: 1rem;
     border-top: 1px solid rgba(230, 223, 210, 0.1);
+
+    &--primary {
+      border-top-color: var(--gold);
+    }
   }
 
   &__cn {
@@ -590,12 +601,20 @@ const spaces = [
     font-size: 1.1rem;
     letter-spacing: 0.15em;
     color: var(--cinnabar-bright);
-    margin-bottom: 0.35rem;
+    margin-bottom: 0.2rem;
+  }
+
+  &__dir {
+    font-size: 0.7rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.45rem;
   }
 
   &__name {
     font-family: var(--font-display);
-    font-size: 1.35rem;
+    font-size: 1.25rem;
     color: var(--bone);
     margin-bottom: 0.75rem;
     font-weight: 500;
@@ -765,6 +784,12 @@ const spaces = [
   }
 }
 
+@media (max-width: 1200px) {
+  .paths__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
 @media (max-width: 1000px) {
   .proofs__grid {
     grid-template-columns: repeat(2, 1fr);
@@ -772,9 +797,12 @@ const spaces = [
 
   .aim__inner,
   .offer__grid,
-  .spaces__grid,
-  .paths__grid {
+  .spaces__grid {
     grid-template-columns: 1fr;
+  }
+
+  .paths__grid {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
@@ -788,7 +816,8 @@ const spaces = [
   }
 
   .path-preview__list,
-  .proofs__grid {
+  .proofs__grid,
+  .paths__grid {
     grid-template-columns: 1fr;
   }
 

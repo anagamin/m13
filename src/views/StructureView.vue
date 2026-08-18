@@ -117,19 +117,26 @@ const colorMap: Record<string, string> = {
       </div>
     </section>
 
-    <!-- Three approaches -->
+    <!-- Eight approaches -->
     <section class="approaches">
       <div class="container">
         <p class="section-label">Подходы</p>
-        <h2 class="section-title">Три пути восьми бессмертных</h2>
+        <h2 class="section-title">Восемь путей бессмертных</h2>
         <p class="section-lead">
-          Процесс культивации един. Подход выбирается по пренатальным особенностям — и в реальности
-          пути всегда комбинируются.
+          Знания метода делятся на восемь направлений. Все опираются на одни принципы, но у каждого свой
+          акцент: природа, энергия, структура, дух. Подход зависит от пренатальных особенностей — в
+          практике пути комбинируются. Основной для большинства — геометрия Люй Дунбиня.
         </p>
 
         <div class="approaches__grid">
-          <article v-for="a in approaches" :key="a.id" class="approaches__item">
+          <article
+            v-for="a in approaches"
+            :key="a.id"
+            class="approaches__item"
+            :class="{ 'approaches__item--primary': a.primary }"
+          >
             <p class="approaches__cn">{{ a.nameCn }}</p>
+            <p class="approaches__dir">{{ a.direction }}</p>
             <h3 class="approaches__name">{{ a.name }}</h3>
             <p class="approaches__essence">{{ a.essence }}</p>
             <p class="approaches__practice">{{ a.practice }}</p>
@@ -479,7 +486,7 @@ const colorMap: Record<string, string> = {
 
   &__grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: var(--space-lg);
     margin-top: var(--space-md);
   }
@@ -487,6 +494,10 @@ const colorMap: Record<string, string> = {
   &__item {
     padding-top: 1rem;
     border-top: 1px solid rgba(230, 223, 210, 0.1);
+
+    &--primary {
+      border-top-color: var(--gold);
+    }
   }
 
   &__cn {
@@ -494,12 +505,20 @@ const colorMap: Record<string, string> = {
     font-size: 1.1rem;
     letter-spacing: 0.15em;
     color: var(--cinnabar-bright);
-    margin-bottom: 0.35rem;
+    margin-bottom: 0.2rem;
+  }
+
+  &__dir {
+    font-size: 0.7rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.45rem;
   }
 
   &__name {
     font-family: var(--font-display);
-    font-size: 1.35rem;
+    font-size: 1.25rem;
     color: var(--bone);
     margin-bottom: 0.75rem;
     font-weight: 500;
@@ -681,6 +700,12 @@ const colorMap: Record<string, string> = {
   }
 }
 
+@media (max-width: 1200px) {
+  .approaches__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
 @media (max-width: 900px) {
   .path-map__steps {
     grid-template-columns: 1fr 1fr;
@@ -688,9 +713,12 @@ const colorMap: Record<string, string> = {
 
   .path-detail__cols,
   .red-focus__grid,
-  .compare__row,
-  .approaches__grid {
+  .compare__row {
     grid-template-columns: 1fr;
+  }
+
+  .approaches__grid {
+    grid-template-columns: repeat(2, 1fr);
   }
 
   .compare__row--head {
@@ -698,6 +726,12 @@ const colorMap: Record<string, string> = {
   }
 
   .nine__matrix {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 720px) {
+  .approaches__grid {
     grid-template-columns: 1fr;
   }
 }

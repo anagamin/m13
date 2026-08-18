@@ -74,6 +74,9 @@ const colorMap: Record<string, string> = {
             <div class="path-detail__outcome">
               <h3>Итог этапа</h3>
               <p>{{ active.outcome }}</p>
+              <ul v-if="active.results?.length">
+                <li v-for="r in active.results" :key="r">{{ r }}</li>
+              </ul>
             </div>
           </div>
         </article>
@@ -136,7 +139,7 @@ const colorMap: Record<string, string> = {
     </section>
 
     <!-- Nine energies infographic -->
-    <section class="nine">
+    <section id="nine" class="nine">
       <div class="container">
         <p class="section-label">Девять энергий</p>
         <h2 class="section-title">Матрица взаимодействий</h2>
@@ -162,10 +165,56 @@ const colorMap: Record<string, string> = {
 
         <aside class="nine__note">
           <p>
-            <strong>Подмена цзин на ци.</strong> Со временем в даосских школах вместо развития цзин
-            стали развивать уровень ци, а цзин воспринимать лишь как сексуальную эссенцию. Тем самым
-            практика привязалась к земному уровню и утратила способность выйти за его предел. Для
-            алхимии опора — цзин, пространство Человека.
+            <strong>Подмена цзин на ци.</strong> Если вы посмотрите на иероглиф Цзин (精), он состоит из
+            ключа «Зерно» (米) и «Синий» (青). В древности это означало «очищенная субстанция, суть,
+            семя».
+          </p>
+          <p>
+            Когда мы говорим «Цзин-Ци», это читается как «Сущность Энергии» — самая плотная,
+            концентрированная, первозданная форма Ци. Когда мы говорим «Цзин-Шэнь», это читается как
+            «Сущность Духа» — Дух, который обрёл плоть, основу, якорь в материи.
+          </p>
+          <p>
+            Вывод: Цзин — это не третье место в очереди из трёх. Цзин — это мера плотности. Она
+            применяется и к Ци (делая её тяжёлой, «свинцовой»), и к Шэнь (делая его стабильным,
+            «кристаллическим»).
+          </p>
+          <p>В классической алхимии есть известная формула:</p>
+          <blockquote>
+            Цзин — это основа Ци. Без Цзин Ци рассеивается как ветер.<br />
+            Ци — это основа Шэнь. Без Ци Шэнь подобен пламени без масла.<br />
+            Шэнь — это основа Пустоты. Без Шэнь Пустота остаётся пустым местом, а не источником
+            творения.
+          </blockquote>
+          <p>Если спроецировать это на учение о девяти энергиях:</p>
+          <ul>
+            <li>
+              <strong>Цзин-Ци</strong> — Ци (движение) погружена в Цзин (плотность). Наполнение
+              меридианов и фасций. Рождение «ртутного тела».
+            </li>
+            <li>
+              <strong>Цзин-Шэнь</strong> — Шэнь (сознание) схватывается с Цзин (плотностью). Сознание
+              перестаёт быть иллюзорным ветром и начинает кристаллизоваться, овеществляться в теле.
+              Рождение «киноварного тела» и самой Пилюли.
+            </li>
+          </ul>
+          <p>
+            Трактаты («Учжэнь пянь», «Чжун-Люй чуань дао») постоянно твердят: «Чтобы взрастить Шэнь,
+            сначала укрепи Цзин».
+          </p>
+          <p>Если вы начинаете воспринимать Цзин как основу, это кардинально меняет практику:</p>
+          <ul>
+            <li>
+              Вы перестаёте гоняться за «ощущениями» (Ци). Вместо тепла или движения ищете вязкость,
+              тяжесть, клейкость (Цзин).
+            </li>
+            <li>
+              Вы перестаёте «воображать» Шэнь. Вместо медитации на абстрактный свет ищете структуру,
+              опору, сжатие этого света внутри костей или суставов.
+            </li>
+          </ul>
+          <p>
+            Это и есть переход от «воздушной» практики к «свинцовой», о котором говорили мастера.
           </p>
           <p>
             <strong>Важно:</strong> энергии, меридианы и подобные понятия — метафоры. Их не стоит
@@ -196,8 +245,8 @@ const colorMap: Record<string, string> = {
           <p class="section-label">Старт</p>
           <h2 class="section-title">Красный талисман — ваш первый горизонт</h2>
           <p>
-            Подготовка к алхимии: гармония существования, первый материал и инструментарий. Срок
-            индивидуален — для средне-талантливого мужчины 30–40 лет обычно 1–3 года.
+            Базовая схема подготовки: тело как лаборатория, сгущение ци (ци-цзин) и умение перегонять
+            энергию. Срок индивидуален — обычно 1–3 года.
           </p>
           <p>
             Онлайн-обучение начинается в личном кабинете. Часть знаний открыта бесплатно. С навыком
@@ -368,13 +417,20 @@ const colorMap: Record<string, string> = {
       color: var(--bone-dim);
       font-size: 0.95rem;
     }
+
+    ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
   }
 
   &__outcome p {
     font-family: var(--font-display);
-    font-size: 1.5rem;
+    font-size: 1.35rem;
     color: var(--bone);
     line-height: 1.3;
+    margin-bottom: 0.5rem;
   }
 }
 
@@ -393,7 +449,7 @@ const colorMap: Record<string, string> = {
     gap: 1rem;
     padding: 1.1rem 1.25rem;
     border-bottom: 1px solid rgba(230, 223, 210, 0.06);
-    align-items: center;
+    align-items: start;
 
     &:last-child {
       border-bottom: none;
@@ -479,7 +535,7 @@ const colorMap: Record<string, string> = {
     padding: 1.35rem 1.1rem;
     display: flex;
     flex-direction: column;
-    gap: 0.35rem;
+    gap: 0.45rem;
     animation: fade-up 0.6s var(--ease-out) both;
     transition: background 0.3s;
 
@@ -510,16 +566,43 @@ const colorMap: Record<string, string> = {
 
   &__desc {
     font-size: 0.88rem;
-    color: var(--ash);
+    color: var(--bone-dim);
+    line-height: 1.5;
   }
 
   &__note {
-    padding: 1.25rem 1.5rem;
+    padding: 1.5rem 1.6rem;
     border-left: 2px solid var(--gold);
     background: rgba(184, 151, 74, 0.05);
+    max-width: 46rem;
 
-    p + p {
-      margin-top: 0.85rem;
+    p + p,
+    p + blockquote,
+    p + ul,
+    blockquote + p,
+    ul + p {
+      margin-top: 0.9rem;
+    }
+
+    blockquote {
+      margin: 0;
+      padding: 0.85rem 1rem;
+      border-left: 2px solid var(--cinnabar);
+      color: var(--bone-dim);
+      font-style: italic;
+      line-height: 1.65;
+    }
+
+    ul {
+      margin: 0;
+      padding-left: 1.2rem;
+    }
+
+    li {
+      margin-top: 0.55rem;
+      color: var(--bone-dim);
+      font-size: 0.95rem;
+      line-height: 1.6;
     }
 
     strong {

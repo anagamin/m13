@@ -7,7 +7,7 @@
         <span class="footer__seal">m</span>
         <div>
           <p class="footer__name">m13</p>
-          <p class="footer__tag">Устная передача внутренней алхимии · в память об Учителе</p>
+          <p class="footer__tag">Устная передача культивации (внутренней алхимии) · в память об Учителе</p>
         </div>
       </div>
 
@@ -77,7 +77,7 @@
     margin-top: 0.35rem;
     font-size: 0.9rem;
     color: var(--ash);
-    max-width: 18rem;
+    max-width: 22rem;
   }
 
   &__cols {

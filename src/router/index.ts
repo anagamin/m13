@@ -7,7 +7,7 @@ const router = createRouter({
       path: '/',
       name: 'landing',
       component: () => import('@/views/LandingView.vue'),
-      meta: { title: 'm13 · Внутренняя алхимия' },
+      meta: { title: 'm13 · Культивация' },
     },
     {
       path: '/path',

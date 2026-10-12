@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { ref } from 'vue'
 import FaqList from '@/components/FaqList.vue'
 import LearningFlow from '@/components/LearningFlow.vue'
 import MediaModal from '@/components/MediaModal.vue'
@@ -11,33 +11,6 @@ import { stages } from '@/data/stages'
 const heroImageOk = ref(true)
 const activeTitle = ref<string | null>(null)
 const videos = mediaByIds(landingVideoIds)
-
-const answers = computed(() => [
-  {
-    q: 'Что вы узнаете',
-    a: 'Что такое культивация на практике: что делать, зачем этот шаг и как понять, что он получается.',
-  },
-  {
-    q: 'Для кого',
-    a: 'Для тех, кто готов заниматься сам. Опыт цигун, йоги или боевых искусств не нужен.',
-  },
-  {
-    q: 'Почему нам можно верить',
-    a: 'Прямая устная передача и многолетняя практика. Имена не ставим впереди метода.',
-    to: '/about',
-    link: 'О нас',
-  },
-  {
-    q: 'Сколько стоит',
-    a: `Старт бесплатный. Подписка — ${formatRub(subscriptionPriceRub)} в месяц: новые видео и обратная связь.`,
-    to: '/prices',
-    link: 'Все цены',
-  },
-  {
-    q: 'Что после клика',
-    a: 'Регистрация. Затем первый урок в кабинете: видео, теория и упражнение.',
-  },
-])
 
 const spaces = [
   {
@@ -94,21 +67,11 @@ const spaces = [
             <RouterLink to="/enter" class="btn btn--cinnabar btn--lg">Начать бесплатно</RouterLink>
           </div>
           <p class="hero__meta reveal reveal-delay-3">
-            Старт — 0 ₽. Подписка —
+            Старт бесплатный. Подписка —
             <RouterLink to="/prices">{{ formatRub(subscriptionPriceRub) }} в месяц</RouterLink>.
-            Кнопка открывает регистрацию, после неё — первый урок.
+            Дальше откроется регистрация и первый урок.
           </p>
         </div>
-
-        <dl class="answers">
-          <div v-for="item in answers" :key="item.q">
-            <dt>{{ item.q }}</dt>
-            <dd>
-              {{ item.a }}
-              <RouterLink v-if="item.to" :to="item.to">{{ item.link }}</RouterLink>
-            </dd>
-          </div>
-        </dl>
       </div>
     </section>
 
@@ -132,7 +95,7 @@ const spaces = [
 
     <section class="aim">
       <div class="container aim__inner">
-        <div>
+        <div class="aim__copy">
           <p class="section-label">К чему стремимся</p>
           <h2 class="section-title">Цель — за гранью метафоры бессмертия</h2>
           <p class="section-lead">
@@ -312,7 +275,6 @@ const spaces = [
 
   &__intro {
     max-width: 40rem;
-    margin-bottom: 2.5rem;
   }
 
   &__brand {
@@ -362,50 +324,20 @@ const spaces = [
   }
 }
 
-.answers {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 1.25rem;
-  margin: 0;
-  padding-top: 1.5rem;
-  border-top: 1px solid rgba(230, 223, 210, 0.14);
-
-  dt {
-    font-size: 0.68rem;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 0.45rem;
-  }
-
-  dd {
-    margin: 0;
-    font-size: 0.9rem;
-    color: var(--bone-dim);
-    line-height: 1.45;
-  }
-
-  a {
-    display: inline-block;
-    margin-top: 0.45rem;
-    color: var(--gold-bright);
-    font-size: 0.82rem;
-
-    &:hover {
-      color: var(--bone);
-    }
-  }
-}
-
 .who {
   padding: var(--space-2xl) 0;
   border-top: 1px solid rgba(230, 223, 210, 0.06);
 
   &__grid {
     display: grid;
-    grid-template-columns: auto 1fr;
+    grid-template-columns: auto minmax(0, 1fr);
     gap: var(--space-xl);
     align-items: start;
+  }
+
+  .section-lead,
+  .section-title {
+    max-width: 40rem;
   }
 
   &__seal {
@@ -428,9 +360,19 @@ const spaces = [
 
   &__inner {
     display: grid;
-    grid-template-columns: 1.2fr 1fr;
+    grid-template-columns: minmax(0, 1.35fr) minmax(14rem, 22rem);
     gap: var(--space-xl);
-    align-items: center;
+    align-items: start;
+  }
+
+  &__copy {
+    min-width: 0;
+
+    .section-title,
+    .section-lead,
+    p {
+      max-width: 38rem;
+    }
   }
 
   &__steps {
@@ -440,9 +382,10 @@ const spaces = [
     border-left: 1px solid rgba(184, 151, 74, 0.25);
 
     li {
-      display: flex;
+      display: grid;
+      grid-template-columns: 4.25rem minmax(0, 1fr);
+      gap: 0.75rem;
       align-items: baseline;
-      gap: 1rem;
       padding: 0.85rem 0 0.85rem 1.25rem;
       color: var(--bone-dim);
       border-bottom: 1px solid rgba(230, 223, 210, 0.06);
@@ -455,7 +398,6 @@ const spaces = [
         font-family: var(--font-display);
         font-size: 1.15rem;
         color: var(--gold);
-        min-width: 3.5rem;
       }
     }
   }
@@ -475,7 +417,7 @@ const spaces = [
 
   &__list {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 1rem;
     list-style: none;
     margin: 0 0 var(--space-lg);
@@ -521,7 +463,7 @@ const spaces = [
 
   &__grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: var(--space-lg);
   }
 
@@ -569,7 +511,7 @@ const spaces = [
 
   &__grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: var(--space-md);
   }
 
@@ -598,12 +540,7 @@ const spaces = [
 }
 
 @media (max-width: 1100px) {
-  .answers,
   .path__list {
-    grid-template-columns: 1fr 1fr;
-  }
-
-  .answers {
     grid-template-columns: 1fr 1fr;
   }
 }
@@ -623,10 +560,12 @@ const spaces = [
 @media (max-width: 720px) {
   .hero {
     align-items: stretch;
+    min-height: auto;
+    padding-top: calc(var(--header-h) + 3rem);
+    padding-bottom: 3.5rem;
   }
 
   .who__grid,
-  .answers,
   .path__list {
     grid-template-columns: 1fr;
   }

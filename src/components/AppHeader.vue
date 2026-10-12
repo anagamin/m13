@@ -120,7 +120,7 @@ onUnmounted(() => {
   }
 
   &__inner {
-    width: min(100% - 2rem, 90rem);
+    width: min(100% - 2.5rem, var(--max-w));
     margin-inline: auto;
     display: flex;
     align-items: center;

@@ -75,6 +75,56 @@ p {
   color: var(--bone);
 }
 
+:focus-visible {
+  outline: 1px solid var(--gold);
+  outline-offset: 3px;
+}
+
+.page {
+  padding-top: var(--header-h);
+}
+
+.cn {
+  font-family: var(--font-cn);
+  letter-spacing: 0.06em;
+}
+
+.prose {
+  padding-bottom: var(--space-md);
+
+  h2 {
+    font-size: clamp(1.7rem, 3vw, 2.35rem);
+    margin-top: 2.4rem;
+    margin-bottom: 0.85rem;
+    color: var(--bone);
+  }
+
+  p + p,
+  p + ol,
+  ol + p {
+    margin-top: 1rem;
+  }
+
+  ol {
+    list-style: decimal;
+    padding-left: 1.25rem;
+  }
+
+  li {
+    margin-top: 0.45rem;
+    color: var(--bone-dim);
+  }
+
+  a {
+    color: var(--gold);
+    border-bottom: 1px solid rgba(184, 151, 74, 0.4);
+
+    &:hover {
+      color: var(--gold-bright);
+    }
+  }
+}
+
 .container {
   @include container;
 }
@@ -147,6 +197,13 @@ p {
       background: rgba(184, 151, 74, 0.08);
     }
   }
+
+  &--lg {
+    padding: 1.15rem 2.4rem;
+    font-size: 1.05rem;
+    letter-spacing: 0.04em;
+    text-transform: none;
+  }
 }
 
 .section-label {
@@ -178,4 +235,52 @@ p {
   font-size: 1.125rem;
   max-width: 38rem;
   margin-bottom: var(--space-lg);
+}
+
+.page {
+  padding-top: var(--header-h);
+}
+
+.prose {
+  h2 {
+    font-size: clamp(1.7rem, 3vw, 2.4rem);
+    margin-top: 2.6rem;
+    margin-bottom: 0.85rem;
+    color: var(--bone);
+
+    &:first-child {
+      margin-top: 0;
+    }
+  }
+
+  p + p,
+  p + ol,
+  ol + p {
+    margin-top: 1rem;
+  }
+
+  ol {
+    list-style: decimal;
+    margin: 0;
+    padding-left: 1.25rem;
+  }
+
+  li {
+    margin-top: 0.45rem;
+    color: var(--bone-dim);
+  }
+
+  a {
+    color: var(--gold);
+    border-bottom: 1px solid rgba(184, 151, 74, 0.4);
+
+    &:hover {
+      color: var(--gold-bright);
+    }
+  }
+}
+
+:focus-visible {
+  outline: 1px solid var(--gold);
+  outline-offset: 3px;
 }

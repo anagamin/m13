@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue'
+import { useRouter } from 'vue-router'
+import { useAuth } from '@/composables/useAuth'
 import {
   examFeeRub,
   practices,
@@ -9,6 +11,9 @@ import {
   type PracticeTier,
 } from '@/data/content'
 import { stages } from '@/data/stages'
+
+const router = useRouter()
+const { user, logout } = useAuth()
 
 const CORE_TIERS: PracticeTier[] = ['intro', 'early', 'middle', 'late']
 const ALL_NAV_TIERS: PracticeTier[] = [...CORE_TIERS, 'extra']
@@ -97,6 +102,11 @@ function selectPractice(p: Practice) {
   activePracticeId.value = p.id
 }
 
+function signOut() {
+  logout()
+  router.push('/')
+}
+
 function statusGlyph(p: Practice) {
   if (p.access === 'purchasable') return '＋'
   if (p.access === 'locked') return '鎖'
@@ -112,6 +122,8 @@ function statusGlyph(p: Practice) {
         <div>
           <p class="sidebar__label">Структура обучения</p>
           <h1 class="sidebar__title">4 этапа пути</h1>
+          <p v-if="user" class="sidebar__mail">{{ user.email }}</p>
+          <button v-if="user" class="sidebar__out" type="button" @click="signOut">Выйти</button>
         </div>
         <button
           class="sidebar__toggle"
@@ -398,6 +410,25 @@ function statusGlyph(p: Practice) {
     text-transform: uppercase;
     color: var(--gold);
     margin-bottom: 0.3rem;
+  }
+
+  &__mail {
+    margin-top: 0.35rem;
+    font-size: 0.75rem;
+    color: var(--ash);
+    word-break: break-all;
+  }
+
+  &__out {
+    margin-top: 0.35rem;
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--cinnabar-bright);
+
+    &:hover {
+      color: var(--bone);
+    }
   }
 
   &__title {

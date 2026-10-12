@@ -1,15 +1,28 @@
 <script setup lang="ts">
-import type { ProofItem } from '@/data/content'
+import { computed } from 'vue'
 
-defineProps<{ item: ProofItem }>()
+const props = defineProps<{
+  item: {
+    id: string
+    title: string
+    subtitle: string
+    duration: string
+    type?: 'video' | 'audio'
+    free?: boolean
+    tags?: string[]
+  }
+}>()
+
 defineEmits<{ play: [] }>()
+
+const isAudio = computed(() => props.item.type === 'audio')
 </script>
 
 <template>
   <button class="proof" type="button" @click="$emit('play')">
-    <div class="proof__media" :class="`proof__media--${item.type}`">
+    <div class="proof__media" :class="{ 'proof__media--audio': isAudio }">
       <span class="proof__icon" aria-hidden="true">
-        <svg v-if="item.type === 'video'" width="28" height="28" viewBox="0 0 24 24" fill="none">
+        <svg v-if="!isAudio" width="28" height="28" viewBox="0 0 24 24" fill="none">
           <path d="M8 5.5v13l11-6.5L8 5.5z" fill="currentColor" />
         </svg>
         <svg v-else width="28" height="28" viewBox="0 0 24 24" fill="none">
@@ -23,9 +36,12 @@ defineEmits<{ play: [] }>()
       <span v-if="item.free" class="proof__badge">Бесплатно</span>
     </div>
     <div class="proof__body">
-      <p class="proof__type">{{ item.type === 'video' ? 'Видео' : 'Аудио' }}</p>
+      <p class="proof__type">{{ isAudio ? 'Аудио' : 'Видео' }}</p>
       <h3 class="proof__title">{{ item.title }}</h3>
       <p class="proof__sub">{{ item.subtitle }}</p>
+      <p v-if="item.tags?.length" class="proof__tags">
+        <span v-for="tag in item.tags" :key="tag">{{ tag }}</span>
+      </p>
     </div>
   </button>
 </template>
@@ -152,6 +168,20 @@ defineEmits<{ play: [] }>()
   &__sub {
     font-size: 0.9rem;
     color: var(--ash);
+  }
+
+  &__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: 0.7rem;
+
+    span {
+      font-size: 0.68rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
   }
 }
 </style>

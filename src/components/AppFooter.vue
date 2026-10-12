@@ -1,5 +1,3 @@
-<script setup lang="ts"></script>
-
 <template>
   <footer class="footer">
     <div class="footer__inner container">
@@ -7,28 +5,31 @@
         <span class="footer__seal">m</span>
         <div>
           <p class="footer__name">m13</p>
-          <p class="footer__tag">Устная передача культивации (внутренней алхимии) · в память об Учителе</p>
+          <p class="footer__tag">Устная передача культивации. Метод важнее личностей.</p>
         </div>
       </div>
 
       <div class="footer__cols">
         <div>
-          <p class="footer__label">Путь</p>
-          <RouterLink to="/">О проекте</RouterLink>
-          <RouterLink to="/path">Структура знаний</RouterLink>
-          <RouterLink to="/cabinet">Обучение</RouterLink>
+          <p class="footer__label">Разделы</p>
+          <RouterLink to="/">Начало</RouterLink>
+          <RouterLink to="/learning">Как проходит обучение</RouterLink>
+          <RouterLink to="/program">Программа</RouterLink>
+          <RouterLink to="/prices">Цены</RouterLink>
+          <RouterLink to="/media">Медиа</RouterLink>
+          <RouterLink to="/about">О нас</RouterLink>
         </div>
         <div>
           <p class="footer__label">Важно</p>
           <p class="footer__note">
-            Практики согласуйте с лечащим врачом при серьёзных проблемах со здоровьем. Первое правило —
-            не навреди.
+            При серьёзных проблемах со здоровьем согласуйте практику с врачом. Если занятие вызывает
+            боль или резкое ухудшение самочувствия — остановитесь.
           </p>
         </div>
       </div>
     </div>
     <div class="footer__bottom container">
-      <p>© {{ new Date().getFullYear() }} m13. Часть знаний — бесплатно. Доступ к глубине — по подписке.</p>
+      <p>© {{ new Date().getFullYear() }} m13. Старт бесплатный. Подписка — 1 500 ₽ в месяц.</p>
     </div>
   </footer>
 </template>
@@ -42,7 +43,7 @@
 
   &__inner {
     display: grid;
-    grid-template-columns: 1.2fr 1fr;
+    grid-template-columns: 1.1fr 1fr;
     gap: var(--space-xl);
     padding-bottom: var(--space-lg);
   }
@@ -63,7 +64,6 @@
     font-family: var(--font-display);
     font-size: 1.25rem;
     font-weight: 600;
-    letter-spacing: -0.02em;
   }
 
   &__name {
@@ -82,15 +82,14 @@
 
   &__cols {
     display: grid;
-    grid-template-columns: 1fr 1.4fr;
+    grid-template-columns: 1fr 1.2fr;
     gap: var(--space-lg);
 
     a {
       display: block;
-      margin-top: 0.55rem;
+      margin-top: 0.5rem;
       color: var(--bone-dim);
       font-size: 0.95rem;
-      transition: color 0.25s;
 
       &:hover {
         color: var(--gold);
@@ -103,13 +102,12 @@
     letter-spacing: 0.18em;
     text-transform: uppercase;
     color: var(--gold);
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.35rem;
   }
 
   &__note {
     font-size: 0.9rem;
     color: var(--ash);
-    line-height: 1.55;
   }
 
   &__bottom {

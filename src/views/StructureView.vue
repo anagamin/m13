@@ -18,11 +18,11 @@ const colorMap: Record<string, string> = {
   <div class="structure">
     <header class="structure__hero">
       <div class="container">
-        <p class="section-label">Карта знания</p>
-        <h1 class="structure__title">Структура пути культивации</h1>
+        <p class="section-label">Программа</p>
+        <h1 class="structure__title">Путь обучения</h1>
         <p class="structure__lead">
-          Три пространства → уровни пути → эликсир. Каркас метода: Земля, Небо и Человек; четыре этапа
-          превращений; создание и усвоение эликсиров как суть культивации.
+          Четыре уровня культивации, девять энергий и эликсир. Центр практики — цзин: не третья строка
+          в списке, а мера плотности, на которую опирается весь метод.
         </p>
       </div>
     </header>
@@ -86,11 +86,11 @@ const colorMap: Record<string, string> = {
     <!-- Timeline comparison with donghua -->
     <section class="compare">
       <div class="container">
-        <p class="section-label">Соответствие</p>
-        <h2 class="section-title">Этапы пути ↔ ориентиры дунхуа</h2>
+        <p class="section-label">Уровни</p>
+        <h2 class="section-title">Четыре состояния, не ранги</h2>
         <p class="section-lead">
-          Лёгкое сопоставление для ориентира. Сами уровни — конкретные состояния практикующего, а не
-          виртуальные ранги.
+          Уровень — конкретное состояние практикующего. Рядом указан привычный ориентир, чтобы было с
+          чем сопоставить название.
         </p>
 
         <div class="compare__table" role="table" aria-label="Сравнение этапов">
@@ -168,6 +168,16 @@ const colorMap: Record<string, string> = {
             <span class="nine__flow">{{ e.from }} → {{ e.to }}</span>
             <span class="nine__desc">{{ e.desc }}</span>
           </div>
+        </div>
+
+        <div id="jing" class="jing">
+          <p class="section-label">Центр практики</p>
+          <h2 class="section-title">Почему цзин — центр</h2>
+          <p class="section-lead">
+            Со временем в даосских школах вместо цзин стали развивать ци и читать цзин как сексуальную
+            эссенцию. Для культивации опора — цзин, пространство Человека: мера плотности, а не третья
+            энергия в очереди.
+          </p>
         </div>
 
         <aside class="nine__note">
@@ -250,16 +260,16 @@ const colorMap: Record<string, string> = {
       <div class="container red-focus__grid">
         <div>
           <p class="section-label">Старт</p>
-          <h2 class="section-title">Красный талисман — ваш первый горизонт</h2>
+          <h2 class="section-title">Красный талисман — первый горизонт</h2>
           <p>
-            Базовая схема подготовки: тело как лаборатория, сгущение ци (ци-цзин) и умение перегонять
-            энергию. Срок индивидуален — обычно 1–3 года.
+            Базовая подготовка: тело как лаборатория, сгущение ци и умение перегонять энергию. Срок
+            индивидуален — обычно 1–3 года.
           </p>
           <p>
-            Онлайн-обучение начинается в личном кабинете. Часть знаний открыта бесплатно. С навыком
-            цигун онлайн-экзамен ускорит доступ к следующим уровням.
+            Начало этого уровня открыто бесплатно. Дальше видео основной цепочки открываются по мере
+            нахождения в подписке.
           </p>
-          <RouterLink to="/cabinet" class="btn btn--cinnabar">Открыть обучение</RouterLink>
+          <RouterLink to="/enter" class="btn btn--cinnabar">Начать бесплатно</RouterLink>
         </div>
         <div class="red-focus__visual" aria-hidden="true">
           <div class="red-focus__ring" />
@@ -533,6 +543,15 @@ const colorMap: Record<string, string> = {
   &__practice {
     font-size: 0.8rem;
     color: var(--ash);
+  }
+}
+
+.jing {
+  scroll-margin-top: calc(var(--header-h) + 1.5rem);
+  margin: var(--space-lg) 0 var(--space-md);
+
+  .section-title {
+    font-size: clamp(1.8rem, 3vw, 2.6rem);
   }
 }
 

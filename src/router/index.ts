@@ -10,7 +10,7 @@ const router = createRouter({
       path: '/',
       name: 'landing',
       component: () => import('@/views/LandingView.vue'),
-      meta: { title: 'Даосская культивация — в реальности · m13' },
+      meta: { title: 'Онлайн-академия даосской алхимии · moneda13.com' },
     },
     {
       path: '/learning',

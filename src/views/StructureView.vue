@@ -1,10 +1,5 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
-import { approaches, energies, stages } from '@/data/stages'
-import type { Stage } from '@/data/stages'
-
-const activeId = ref(stages[0].id)
-const active = computed(() => stages.find((s) => s.id === activeId.value) as Stage)
+import { energies, stages } from '@/data/stages'
 
 const colorMap: Record<string, string> = {
   cinnabar: 'var(--cinnabar)',
@@ -16,144 +11,62 @@ const colorMap: Record<string, string> = {
 
 <template>
   <div class="structure">
-    <header class="structure__hero">
+    <section class="band" aria-labelledby="path-title">
       <div class="container">
-        <p class="section-label">Программа</p>
-        <h1 class="structure__title">Путь обучения</h1>
-        <p class="structure__lead">
-          Четыре уровня культивации, девять энергий и эликсир. Центр практики — цзин: не третья строка
-          в списке, а мера плотности, на которую опирается весь метод.
-        </p>
-      </div>
-    </header>
+        <div class="path">
+          <figure class="path__visual">
+            <img
+              class="path__image"
+              src="/images/learning-path.jpg"
+              width="576"
+              height="1024"
+              alt="Схема пути: красный талисман, белая пагода, зелёная терраса и золотая скрижаль"
+            />
+          </figure>
 
-    <!-- Vertical path infographic -->
-    <section class="path-map">
-      <div class="container">
-        <ol class="path-map__steps">
-          <li
-            v-for="stage in stages"
-            :key="stage.id"
-            class="path-map__step"
-            :class="{ 'path-map__step--active': activeId === stage.id }"
-            :style="{ '--stage-color': colorMap[stage.color] }"
-          >
-            <button
-              type="button"
-              class="path-map__node"
-              :aria-pressed="activeId === stage.id"
-              @click="activeId = stage.id"
-            >
-              <span class="path-map__seal">{{ stage.nameCn }}</span>
-              <span class="path-map__order">Этап {{ stage.order }}</span>
-              <span class="path-map__name">{{ stage.name }}</span>
-            </button>
-
-            <div class="path-map__bridge">
-              <span class="path-map__donghua">≈ {{ stage.donghua }}</span>
-            </div>
-          </li>
-        </ol>
-
-        <article class="path-detail" :style="{ '--stage-color': colorMap[active.color] }">
-          <div class="path-detail__head">
-            <span class="path-detail__cn">{{ active.nameCn }}</span>
-            <h2>{{ active.name }}</h2>
-            <p class="path-detail__meta">
-              Соотносится с: <em>{{ active.donghua }}</em> · {{ active.duration }}
+          <header class="band__head path__head">
+            <p class="section-label">Программа</p>
+            <h1 id="path-title" class="section-title">Путь обучения</h1>
+            <p class="section-lead">
+              Четыре уровня культивации. На изображении путь идёт снизу вверх — от красного талисмана к
+              золотой скрижали. Рядом — содержание каждого уровня.
             </p>
-          </div>
-          <p class="path-detail__summary">{{ active.summary }}</p>
-          <div class="path-detail__cols">
-            <div>
-              <h3>Практики и направления</h3>
-              <ul>
-                <li v-for="p in active.practices" :key="p">{{ p }}</li>
-              </ul>
-            </div>
-            <div class="path-detail__outcome">
-              <h3>Итог этапа</h3>
-              <p>{{ active.outcome }}</p>
-              <ul v-if="active.results?.length">
-                <li v-for="r in active.results" :key="r">{{ r }}</li>
-              </ul>
-            </div>
-          </div>
-        </article>
-      </div>
-    </section>
+          </header>
 
-    <!-- Timeline comparison with donghua -->
-    <section class="compare">
-      <div class="container">
-        <p class="section-label">Уровни</p>
-        <h2 class="section-title">Четыре состояния, не ранги</h2>
-        <p class="section-lead">
-          Уровень — конкретное состояние практикующего. Рядом указан привычный ориентир, чтобы было с
-          чем сопоставить название.
-        </p>
-
-        <div class="compare__table" role="table" aria-label="Сравнение этапов">
-          <div class="compare__row compare__row--head" role="row">
-            <div role="columnheader">Этап m13</div>
-            <div role="columnheader">Ориентир</div>
-            <div role="columnheader">Суть</div>
-          </div>
-          <div
-            v-for="stage in stages"
-            :key="stage.id"
-            class="compare__row"
-            role="row"
-            :style="{ '--stage-color': colorMap[stage.color] }"
-          >
-            <div role="cell">
-              <span class="compare__dot" />
-              {{ stage.name }}
-            </div>
-            <div role="cell">{{ stage.donghua }}</div>
-            <div role="cell">{{ stage.outcome }}</div>
-          </div>
+          <ol class="levels">
+            <li
+              v-for="stage in stages"
+              :key="stage.id"
+              class="level"
+              :style="{ '--stage-color': colorMap[stage.color] }"
+            >
+              <span class="level__index" aria-hidden="true">{{ stage.order }}</span>
+              <article class="level__card">
+                <p class="level__seal">{{ stage.nameCn }}</p>
+                <h2 class="level__name">{{ stage.name }}</h2>
+                <p class="level__meta">
+                  <em>{{ stage.donghua }}</em>
+                  <span>{{ stage.duration }}</span>
+                </p>
+                <p class="level__summary">{{ stage.summary }}</p>
+                <p class="level__outcome">{{ stage.outcome }}</p>
+              </article>
+            </li>
+          </ol>
         </div>
       </div>
     </section>
 
-    <!-- Eight approaches -->
-    <section class="approaches">
+    <section id="nine" class="band band--lift" aria-labelledby="nine-title">
       <div class="container">
-        <p class="section-label">Подходы</p>
-        <h2 class="section-title">Восемь путей бессмертных</h2>
-        <p class="section-lead">
-          Знания метода делятся на восемь направлений. Все опираются на одни принципы, но у каждого свой
-          акцент: природа, энергия, структура, дух. Подход зависит от пренатальных особенностей — в
-          практике пути комбинируются. Основной для большинства — геометрия Люй Дунбиня.
-        </p>
-
-        <div class="approaches__grid">
-          <article
-            v-for="a in approaches"
-            :key="a.id"
-            class="approaches__item"
-            :class="{ 'approaches__item--primary': a.primary }"
-          >
-            <p class="approaches__cn">{{ a.nameCn }}</p>
-            <p class="approaches__dir">{{ a.direction }}</p>
-            <h3 class="approaches__name">{{ a.name }}</h3>
-            <p class="approaches__essence">{{ a.essence }}</p>
-            <p class="approaches__practice">{{ a.practice }}</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- Nine energies infographic -->
-    <section id="nine" class="nine">
-      <div class="container">
-        <p class="section-label">Девять энергий</p>
-        <h2 class="section-title">Матрица взаимодействий</h2>
-        <p class="section-lead">
-          На взаимодействии трёх пространств рождается идея о девяти энергиях. С разной позиции
-          восприятия понимание отличается — ниже опорная схема.
-        </p>
+        <header class="band__head">
+          <p class="section-label">Девять энергий</p>
+          <h2 id="nine-title" class="section-title">Матрица взаимодействий</h2>
+          <p class="section-lead">
+            На взаимодействии трёх пространств рождается идея о девяти энергиях. С разной позиции
+            восприятия понимание отличается — ниже опорная схема.
+          </p>
+        </header>
 
         <div class="nine__matrix" role="list">
           <div
@@ -169,18 +82,22 @@ const colorMap: Record<string, string> = {
             <span class="nine__desc">{{ e.desc }}</span>
           </div>
         </div>
+      </div>
+    </section>
 
-        <div id="jing" class="jing">
+    <section id="jing" class="band" aria-labelledby="jing-title">
+      <div class="container">
+        <header class="band__head">
           <p class="section-label">Центр практики</p>
-          <h2 class="section-title">Почему цзин — центр</h2>
+          <h2 id="jing-title" class="section-title">Почему цзин — центр</h2>
           <p class="section-lead">
             Со временем в даосских школах вместо цзин стали развивать ци и читать цзин как сексуальную
             эссенцию. Для культивации опора — цзин, пространство Человека: мера плотности, а не третья
             энергия в очереди.
           </p>
-        </div>
+        </header>
 
-        <aside class="nine__note">
+        <div class="reading">
           <p>
             <strong>Подмена цзин на ци.</strong> Если вы посмотрите на иероглиф Цзин (精), он состоит из
             ключа «Зерно» (米) и «Синий» (青). В древности это означало «очищенная субстанция, суть,
@@ -238,43 +155,22 @@ const colorMap: Record<string, string> = {
             воспринимать буквально и строить из них описательную модель. Они нужны, чтобы дать опору
             практике. Реальное понимание вырастает из самой практики.
           </p>
-        </aside>
-      </div>
-    </section>
-
-    <!-- Elixir essence -->
-    <section class="elixir">
-      <div class="narrow">
-        <p class="section-label">Суть метода</p>
-        <h2 class="section-title">Создание и усвоение эликсиров</h2>
-        <p>
-          Эликсир — триединство Неба, Земли и Человека: ртуть (материал), сера (направление), киноварь
-          (процесс преобразования). Это автономно циркулирующее усилие, способное изменять все свойства
-          человека. Познавший эликсир — познал культивацию.
-        </p>
-      </div>
-    </section>
-
-    <!-- Red talisman / CTA -->
-    <section class="red-focus">
-      <div class="container red-focus__grid">
-        <div>
-          <p class="section-label">Старт</p>
-          <h2 class="section-title">Красный талисман — первый горизонт</h2>
-          <p>
-            Базовая подготовка: тело как лаборатория, сгущение ци и умение перегонять энергию. Срок
-            индивидуален — обычно 1–3 года.
-          </p>
-          <p>
-            Начало этого уровня открыто бесплатно. Дальше видео основной цепочки открываются по мере
-            нахождения в подписке.
-          </p>
-          <RouterLink to="/enter" class="btn btn--cinnabar">Начать бесплатно</RouterLink>
         </div>
-        <div class="red-focus__visual" aria-hidden="true">
-          <div class="red-focus__ring" />
-          <div class="red-focus__ring red-focus__ring--2" />
-          <span class="red-focus__glyph">赤符</span>
+      </div>
+    </section>
+
+    <section id="elixir" class="band band--lift" aria-labelledby="elixir-title">
+      <div class="container">
+        <header class="band__head">
+          <p class="section-label">Суть метода</p>
+          <h2 id="elixir-title" class="section-title">Создание и усвоение эликсиров</h2>
+        </header>
+        <div class="reading">
+          <p>
+            Эликсир — триединство Неба, Земли и Человека: ртуть (материал), сера (направление), киноварь
+            (процесс преобразования). Это автономно циркулирующее усилие, способное изменять все свойства
+            человека. Познавший эликсир — познал культивацию.
+          </p>
         </div>
       </div>
     </section>
@@ -284,474 +180,324 @@ const colorMap: Record<string, string> = {
 <style scoped lang="scss">
 .structure {
   padding-top: var(--header-h);
+}
 
-  &__hero {
-    padding: var(--space-xl) 0 var(--space-lg);
+.band {
+  padding: var(--space-2xl) 0;
+
+  &:first-child {
+    padding-top: var(--space-xl);
     background:
-      radial-gradient(ellipse at 20% 0%, rgba(184, 58, 42, 0.12), transparent 50%),
-      linear-gradient(180deg, var(--ink-elevated), var(--ink));
+      radial-gradient(ellipse at 22% 18%, rgba(184, 151, 74, 0.09), transparent 42%),
+      radial-gradient(ellipse at 8% 78%, rgba(184, 58, 42, 0.08), transparent 36%);
   }
 
-  &__title {
-    font-size: clamp(2.2rem, 5vw, 3.5rem);
-    margin-bottom: 1rem;
+  &--lift {
+    background: rgba(14, 18, 24, 0.5);
   }
 
-  &__lead {
-    max-width: 38rem;
-    font-size: 1.1rem;
+  &__head {
+    max-width: 42rem;
+    margin-bottom: var(--space-lg);
+
+    .section-label {
+      margin-bottom: 0.85rem;
+    }
+
+    .section-title {
+      margin-bottom: 0.85rem;
+    }
+
+    .section-lead {
+      margin-bottom: 0;
+    }
   }
 }
 
-.path-map {
-  padding: var(--space-xl) 0;
+#nine,
+#jing,
+#elixir {
+  scroll-margin-top: calc(var(--header-h) + 1.25rem);
+}
+
+.path {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  grid-template-areas:
+    'visual head'
+    'visual levels';
+  column-gap: clamp(1.5rem, 3vw, 3.25rem);
+  align-items: start;
+
+  &__head {
+    grid-area: head;
+    margin-bottom: var(--space-md);
+  }
+
+  &__visual {
+    grid-area: visual;
+    position: sticky;
+    top: calc(var(--header-h) + 1rem);
+    margin: 0;
+    justify-self: start;
+    border: 1px solid rgba(201, 168, 76, 0.38);
+    background: #05070a;
+    box-shadow: 0 28px 70px rgba(0, 0, 0, 0.38);
+    line-height: 0;
+  }
+
+  &__image {
+    width: auto;
+    height: auto;
+    max-width: min(32rem, 40vw);
+    max-height: calc(100dvh - var(--header-h) - 2.75rem);
+  }
+}
+
+.levels {
+  grid-area: levels;
   position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 1.15rem;
+  margin: 0;
+  padding: 0 0 0 0.15rem;
+  list-style: none;
 
-  &__steps {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 0.75rem;
-    margin-bottom: var(--space-lg);
+  &::before {
+    content: '';
+    position: absolute;
+    left: 1.3rem;
+    top: 1.4rem;
+    bottom: 1.4rem;
+    width: 1px;
+    background: linear-gradient(
+      180deg,
+      var(--cinnabar),
+      var(--pagoda) 38%,
+      var(--jade-bright) 68%,
+      var(--gold)
+    );
+  }
+}
+
+.level {
+  display: grid;
+  grid-template-columns: 2.5rem minmax(0, 1fr);
+  gap: 0.9rem;
+  align-items: start;
+
+  &__index {
     position: relative;
+    z-index: 1;
+    width: 2.35rem;
+    height: 2.35rem;
+    display: grid;
+    place-items: center;
+    margin-top: 0.85rem;
+    border: 1px solid var(--stage-color);
+    background: var(--ink);
+    color: var(--stage-color);
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    line-height: 1;
   }
 
-  &__step {
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-  }
-
-  &__node {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.35rem;
-    width: 100%;
-    padding: 1.25rem 1rem;
+  &__card {
+    padding: 1.15rem 1.25rem 1.2rem;
+    background:
+      linear-gradient(180deg, color-mix(in srgb, var(--stage-color) 9%, transparent), transparent 46%),
+      var(--ink-elevated);
     border: 1px solid rgba(230, 223, 210, 0.1);
-    background: var(--ink-elevated);
-    transition:
-      border-color 0.35s,
-      background 0.35s,
-      transform 0.35s var(--ease-out);
-
-    &:hover {
-      transform: translateY(-2px);
-      border-color: color-mix(in srgb, var(--stage-color) 50%, transparent);
-    }
-  }
-
-  &__step--active .path-map__node {
-    border-color: var(--stage-color);
-    background: color-mix(in srgb, var(--stage-color) 10%, var(--ink-elevated));
+    border-top: 2px solid var(--stage-color);
   }
 
   &__seal {
     font-family: var(--font-cn);
-    font-size: 1.5rem;
-    color: var(--stage-color);
-    letter-spacing: 0.12em;
-  }
-
-  &__order {
-    font-size: 0.68rem;
+    font-size: 0.95rem;
     letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: var(--ash);
+    color: var(--stage-color);
+    margin-bottom: 0.35rem;
   }
 
   &__name {
-    font-family: var(--font-display);
-    font-size: 1.25rem;
+    font-size: clamp(1.45rem, 2vw, 1.85rem);
     color: var(--bone);
-  }
-
-  &__bridge {
-    padding-left: 0.25rem;
-  }
-
-  &__donghua {
-    font-size: 0.8rem;
-    color: var(--ash);
-    font-style: italic;
-  }
-}
-
-.path-detail {
-  padding: var(--space-lg);
-  border: 1px solid color-mix(in srgb, var(--stage-color) 35%, transparent);
-  background:
-    linear-gradient(135deg, color-mix(in srgb, var(--stage-color) 8%, transparent), transparent 50%),
-    var(--ink-soft);
-  animation: fade-up 0.5s var(--ease-out);
-
-  &__cn {
-    font-family: var(--font-cn);
-    font-size: 0.9rem;
-    letter-spacing: 0.2em;
-    color: var(--stage-color);
-  }
-
-  h2 {
-    font-size: 2rem;
-    margin: 0.35rem 0 0.5rem;
+    margin-bottom: 0.4rem;
   }
 
   &__meta {
-    font-size: 0.9rem;
-    color: var(--gold);
-    margin-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    margin-bottom: 0.85rem;
 
     em {
       font-family: var(--font-display);
       font-style: italic;
+      font-size: 1.02rem;
+      color: var(--gold);
+    }
+
+    span {
+      font-size: 0.78rem;
+      letter-spacing: 0.04em;
+      color: var(--ash);
     }
   }
 
   &__summary {
-    margin-bottom: 1.5rem;
-    max-width: 40rem;
+    font-size: 0.98rem;
+    line-height: 1.65;
   }
 
-  &__cols {
-    display: grid;
-    grid-template-columns: 1.4fr 1fr;
-    gap: var(--space-lg);
-
-    h3 {
-      font-size: 0.75rem;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--ash);
-      margin-bottom: 0.75rem;
-      font-family: var(--font-body);
-      font-weight: 500;
-    }
-
-    li {
-      padding: 0.45rem 0;
-      border-bottom: 1px solid rgba(230, 223, 210, 0.06);
-      color: var(--bone-dim);
-      font-size: 0.95rem;
-    }
-
-    ul {
-      list-style: none;
-      margin: 0;
-      padding: 0;
-    }
-  }
-
-  &__outcome p {
+  &__outcome {
+    margin-top: 0.9rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid rgba(230, 223, 210, 0.08);
     font-family: var(--font-display);
-    font-size: 1.35rem;
-    color: var(--bone);
-    line-height: 1.3;
-    margin-bottom: 0.5rem;
-  }
-}
-
-.compare {
-  padding: var(--space-2xl) 0;
-  background: rgba(14, 18, 24, 0.5);
-
-  &__table {
-    margin-top: var(--space-md);
-    border: 1px solid rgba(230, 223, 210, 0.08);
-  }
-
-  &__row {
-    display: grid;
-    grid-template-columns: 1.1fr 1.3fr 1fr;
-    gap: 1rem;
-    padding: 1.1rem 1.25rem;
-    border-bottom: 1px solid rgba(230, 223, 210, 0.06);
-    align-items: start;
-
-    &:last-child {
-      border-bottom: none;
-    }
-
-    &--head {
-      font-size: 0.7rem;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: var(--ash);
-      background: var(--ink-elevated);
-    }
-  }
-
-  &__dot {
-    display: inline-block;
-    width: 8px;
-    height: 8px;
-    margin-right: 0.6rem;
-    background: var(--stage-color);
-    vertical-align: middle;
-  }
-}
-
-.approaches {
-  padding: var(--space-2xl) 0;
-
-  &__grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: var(--space-lg);
-    margin-top: var(--space-md);
-  }
-
-  &__item {
-    padding-top: 1rem;
-    border-top: 1px solid rgba(230, 223, 210, 0.1);
-
-    &--primary {
-      border-top-color: var(--gold);
-    }
-  }
-
-  &__cn {
-    font-family: var(--font-cn);
-    font-size: 1.1rem;
-    letter-spacing: 0.15em;
-    color: var(--cinnabar-bright);
-    margin-bottom: 0.2rem;
-  }
-
-  &__dir {
-    font-size: 0.7rem;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 0.45rem;
-  }
-
-  &__name {
-    font-family: var(--font-display);
-    font-size: 1.25rem;
-    color: var(--bone);
-    margin-bottom: 0.75rem;
-    font-weight: 500;
-  }
-
-  &__essence {
-    font-size: 0.95rem;
-    color: var(--bone-dim);
-    margin-bottom: 0.85rem;
-  }
-
-  &__practice {
-    font-size: 0.8rem;
-    color: var(--ash);
-  }
-}
-
-.jing {
-  scroll-margin-top: calc(var(--header-h) + 1.5rem);
-  margin: var(--space-lg) 0 var(--space-md);
-
-  .section-title {
-    font-size: clamp(1.8rem, 3vw, 2.6rem);
-  }
-}
-
-.nine {
-  padding: var(--space-2xl) 0;
-  background: rgba(14, 18, 24, 0.35);
-
-  &__matrix {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1px;
-    background: rgba(230, 223, 210, 0.08);
-    border: 1px solid rgba(230, 223, 210, 0.08);
-    margin-bottom: var(--space-lg);
-  }
-
-  &__cell {
-    background: var(--ink);
-    padding: 1.35rem 1.1rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.45rem;
-    animation: fade-up 0.6s var(--ease-out) both;
-    transition: background 0.3s;
-
-    &:hover {
-      background: var(--ink-soft);
-    }
-
-    &--focus {
-      background: rgba(184, 58, 42, 0.12);
-      outline: 1px solid rgba(184, 58, 42, 0.4);
-      outline-offset: -1px;
-      z-index: 1;
-    }
-  }
-
-  &__label {
-    font-family: var(--font-display);
-    font-size: 1.35rem;
+    font-size: 1.2rem;
+    line-height: 1.35;
     color: var(--bone);
   }
-
-  &__flow {
-    font-size: 0.75rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--gold);
-  }
-
-  &__desc {
-    font-size: 0.88rem;
-    color: var(--bone-dim);
-    line-height: 1.5;
-  }
-
-  &__note {
-    padding: 1.5rem 1.6rem;
-    border-left: 2px solid var(--gold);
-    background: rgba(184, 151, 74, 0.05);
-    max-width: 46rem;
-
-    p + p,
-    p + blockquote,
-    p + ul,
-    blockquote + p,
-    ul + p {
-      margin-top: 0.9rem;
-    }
-
-    blockquote {
-      margin: 0;
-      padding: 0.85rem 1rem;
-      border-left: 2px solid var(--cinnabar);
-      color: var(--bone-dim);
-      font-style: italic;
-      line-height: 1.65;
-    }
-
-    ul {
-      margin: 0;
-      padding-left: 1.2rem;
-    }
-
-    li {
-      margin-top: 0.55rem;
-      color: var(--bone-dim);
-      font-size: 0.95rem;
-      line-height: 1.6;
-    }
-
-    strong {
-      color: var(--gold);
-      font-weight: 500;
-    }
-  }
 }
 
-.elixir {
-  padding: var(--space-xl) 0;
-  text-align: center;
-
-  .section-title {
-    font-size: clamp(1.75rem, 3vw, 2.5rem);
-  }
-
-  p:last-child {
-    max-width: 38rem;
-    margin-inline: auto;
-  }
+.nine__matrix {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: rgba(230, 223, 210, 0.08);
+  border: 1px solid rgba(230, 223, 210, 0.08);
 }
 
-.red-focus {
-  padding: 0 0 var(--space-2xl);
+.nine__cell {
+  background: var(--ink);
+  padding: 1.35rem 1.1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  animation: fade-up 0.6s var(--ease-out) both;
+  transition: background 0.3s;
 
-  &__grid {
-    display: grid;
-    grid-template-columns: 1.2fr 1fr;
-    gap: var(--space-xl);
-    align-items: center;
-    padding: var(--space-xl);
-    background:
-      radial-gradient(ellipse at 90% 50%, rgba(184, 58, 42, 0.2), transparent 55%),
-      var(--ink-soft);
-    border: 1px solid rgba(184, 58, 42, 0.2);
-
-    p {
-      margin-bottom: 1rem;
-    }
-
-    .btn {
-      margin-top: 0.5rem;
-    }
+  &:hover {
+    background: var(--ink-soft);
   }
 
-  &__visual {
-    position: relative;
-    height: 16rem;
-    display: grid;
-    place-items: center;
-  }
-
-  &__ring {
-    position: absolute;
-    width: 10rem;
-    height: 10rem;
-    border: 1px solid rgba(184, 58, 42, 0.45);
-    border-radius: 50%;
-    animation: qi-pulse 6s ease-in-out infinite;
-
-    &--2 {
-      width: 14rem;
-      height: 14rem;
-      border-color: rgba(184, 58, 42, 0.2);
-      animation-delay: -2s;
-    }
-  }
-
-  &__glyph {
-    font-family: var(--font-cn);
-    font-size: 2.5rem;
-    letter-spacing: 0.3em;
-    color: var(--cinnabar-bright);
+  &--focus {
+    background: rgba(184, 58, 42, 0.12);
+    outline: 1px solid rgba(184, 58, 42, 0.4);
+    outline-offset: -1px;
     z-index: 1;
   }
 }
 
-@media (max-width: 1200px) {
-  .approaches__grid {
-    grid-template-columns: repeat(2, 1fr);
+.nine__label {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  color: var(--bone);
+}
+
+.nine__flow {
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.nine__desc {
+  font-size: 0.88rem;
+  color: var(--bone-dim);
+  line-height: 1.5;
+}
+
+.reading {
+  max-width: 46rem;
+  padding: 1.5rem 1.6rem;
+  background: var(--ink-elevated);
+  border: 1px solid rgba(230, 223, 210, 0.1);
+  border-top: 2px solid var(--gold);
+
+  p + p,
+  p + blockquote,
+  p + ul,
+  blockquote + p,
+  ul + p {
+    margin-top: 0.9rem;
+  }
+
+  blockquote {
+    margin: 0;
+    padding: 0.85rem 1rem;
+    border-left: 2px solid var(--cinnabar);
+    color: var(--bone-dim);
+    font-style: italic;
+    line-height: 1.65;
+  }
+
+  ul {
+    margin: 0;
+    padding-left: 1.2rem;
+    list-style: disc;
+  }
+
+  li {
+    margin-top: 0.55rem;
+    color: var(--bone-dim);
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+
+  strong {
+    color: var(--gold);
+    font-weight: 500;
+  }
+}
+
+@media (max-width: 980px) {
+  .path {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      'head'
+      'visual'
+      'levels';
+    row-gap: var(--space-md);
+  }
+
+  .path__visual {
+    position: static;
+    justify-self: start;
+  }
+
+  .path__image {
+    max-width: min(100%, 26rem);
+    max-height: 78vh;
   }
 }
 
 @media (max-width: 900px) {
-  .path-map__steps {
-    grid-template-columns: 1fr 1fr;
-  }
-
-  .path-detail__cols,
-  .red-focus__grid,
-  .compare__row {
-    grid-template-columns: 1fr;
-  }
-
-  .approaches__grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .compare__row--head {
-    display: none;
-  }
-
   .nine__matrix {
     grid-template-columns: 1fr;
   }
 }
 
-@media (max-width: 720px) {
-  .approaches__grid {
-    grid-template-columns: 1fr;
+@media (max-width: 640px) {
+  .levels::before {
+    left: 1.15rem;
+  }
+
+  .level {
+    grid-template-columns: 2.15rem minmax(0, 1fr);
+    gap: 0.7rem;
+  }
+
+  .level__index {
+    width: 2rem;
+    height: 2rem;
+    font-size: 1rem;
+  }
+
+  .reading {
+    padding: 1.15rem 1rem;
   }
 }
 </style>

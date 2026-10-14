@@ -52,13 +52,15 @@ const videos = mediaByIds(landingVideoIds)
         </div>
 
         <aside class="hero__preview reveal reveal-delay-2">
-          <video
-            class="hero__video"
-            src="/hero.mp4"
-            playsinline
-            controls
-            preload="metadata"
-          />
+          <div class="hero__frame">
+            <iframe
+              class="hero__video"
+              src="https://vkvideo.ru/video_ext.php?oid=-242302356&id=456239017&hash=c2cb35254799a364&hd=3&autoplay=0"
+              title="Видео"
+              allow="encrypted-media; fullscreen; picture-in-picture; screen-wake-lock"
+              allowfullscreen
+            />
+          </div>
         </aside>
       </div>
     </section>
@@ -273,12 +275,21 @@ const videos = mediaByIds(landingVideoIds)
     min-width: 0;
   }
 
-  &__video {
-    display: block;
+  &__frame {
+    position: relative;
     width: 100%;
-    height: auto;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
     background: #0a0d12;
     border: 1px solid rgba(230, 223, 210, 0.12);
+  }
+
+  &__video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
   }
 
   &__cta {

@@ -4,34 +4,12 @@ import FaqList from '@/components/FaqList.vue'
 import LearningFlow from '@/components/LearningFlow.vue'
 import MediaModal from '@/components/MediaModal.vue'
 import ProofCard from '@/components/ProofCard.vue'
-import CinnabarSeal from '@/components/CinnabarSeal.vue'
 import { faq, formatRub, mediaByIds, landingVideoIds, subscriptionPriceRub } from '@/data/site'
 import { stages } from '@/data/stages'
 
 const heroImageOk = ref(true)
 const activeTitle = ref<string | null>(null)
 const videos = mediaByIds(landingVideoIds)
-
-const spaces = [
-  {
-    key: 'earth',
-    name: 'Земля',
-    term: 'ци',
-    text: 'Пространство времени и конкретных объектов: тело, стол, ощущение — всё, что появляется и исчезает.',
-  },
-  {
-    key: 'human',
-    name: 'Человек',
-    term: 'цзин',
-    text: 'Граница между Небом и Землёй. Пространство усилий и перемен — опора и движущее начало культивации.',
-  },
-  {
-    key: 'heaven',
-    name: 'Небо',
-    term: 'шэнь',
-    text: 'Пространство вне времени: чистые структуры, сознание и идеи — природа Духа.',
-  },
-]
 </script>
 
 <template>
@@ -70,7 +48,6 @@ const spaces = [
           <p class="hero__meta reveal reveal-delay-3">
             Старт бесплатный. Подписка —
             <RouterLink to="/prices">{{ formatRub(subscriptionPriceRub) }} в месяц</RouterLink>.
-            Дальше откроется регистрация и первый урок.
           </p>
         </div>
 
@@ -99,20 +76,15 @@ const spaces = [
     </section>
 
     <section class="who">
-      <div class="container who__grid">
-        <div class="who__seal">
-          <CinnabarSeal size="lg" char="傳" label="Передача" />
-        </div>
-        <div>
-          <p class="section-label">Кто мы</p>
-          <h2 class="section-title">Носители устной передачи</h2>
-          <p class="section-lead">
-            Метод пришёл прямой устной передачей традиции внутренней алхимии. В основе — Школы
-            Небесных Наставников (天師道) и Школа Высшей Чистоты (上清). Мы сами практикуем его много
-            лет и не выносим личные имена вперёд: важнее передача, чем личности.
-          </p>
-          <RouterLink to="/about" class="text-link">Подробнее о нас</RouterLink>
-        </div>
+      <div class="container">
+        <p class="section-label">Кто мы</p>
+        <h2 class="section-title">Носители устной передачи</h2>
+        <p class="section-lead">
+          Метод пришёл прямой устной передачей традиции внутренней алхимии. В основе — Школы
+          Небесных Наставников (天師道) и Школа Высшей Чистоты (上清). Мы сами практикуем его много
+          лет и не выносим личные имена вперёд: важнее передача, чем личности.
+        </p>
+        <RouterLink to="/about" class="text-link">Подробнее о нас</RouterLink>
       </div>
     </section>
 
@@ -122,7 +94,7 @@ const spaces = [
           <p class="section-label">К чему стремимся</p>
           <h2 class="section-title">Цель — за гранью метафоры бессмертия</h2>
           <p class="section-lead">
-            Даже декларируемая цель — бессмертие — лишь образ. В реальности цель культивации лежит за
+            Декларируемая цель — бессмертие — лишь образ. В реальности цель культивации лежит за
             гранью жизни и смерти, пространства и времени, и недоступна для описания.
           </p>
           <p>
@@ -176,27 +148,6 @@ const spaces = [
       </div>
     </section>
 
-    <section class="spaces">
-      <div class="container">
-        <p class="section-label">Основа метода</p>
-        <h2 class="section-title">Три пространства</h2>
-        <p class="section-lead">
-          Метод стоит на взаимодействии Земли, Человека и Неба. Из него вырастают девять энергий и
-          сама идея эликсира. Опора практики — цзин.
-        </p>
-        <div class="spaces__grid">
-          <article v-for="space in spaces" :key="space.key" :class="`spaces__item spaces__item--${space.key}`">
-            <p class="spaces__name">{{ space.name }}</p>
-            <p class="spaces__term">{{ space.term }}</p>
-            <p>{{ space.text }}</p>
-          </article>
-        </div>
-        <p class="spaces__more">
-          <RouterLink to="/program#jing" class="text-link">Почему цзин — центр практики</RouterLink>
-        </p>
-      </div>
-    </section>
-
     <section class="media">
       <div class="container">
         <p class="section-label">Медиа</p>
@@ -217,7 +168,7 @@ const spaces = [
     </section>
 
     <section class="faq">
-      <div class="container faq__inner">
+      <div class="container">
         <p class="section-label">Вопросы</p>
         <h2 class="section-title">Коротко до старта</h2>
         <FaqList :items="faq" />
@@ -438,22 +389,6 @@ const spaces = [
 .who {
   padding: var(--space-2xl) 0;
   border-top: 1px solid rgba(230, 223, 210, 0.06);
-
-  &__grid {
-    display: grid;
-    grid-template-columns: auto minmax(0, 1fr);
-    gap: var(--space-xl);
-    align-items: start;
-  }
-
-  .section-lead,
-  .section-title {
-    max-width: 40rem;
-  }
-
-  &__seal {
-    padding-top: 0.4rem;
-  }
 }
 
 .text-link {
@@ -569,51 +504,6 @@ const spaces = [
   }
 }
 
-.spaces {
-  padding: 0 0 var(--space-2xl);
-
-  &__grid {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: var(--space-lg);
-  }
-
-  &__item {
-    padding-top: 1.15rem;
-    border-top: 2px solid rgba(230, 223, 210, 0.12);
-
-    &--earth {
-      border-top-color: var(--cinnabar);
-    }
-
-    &--human {
-      border-top-color: var(--gold);
-    }
-
-    &--heaven {
-      border-top-color: var(--jade-bright);
-    }
-  }
-
-  &__name {
-    font-family: var(--font-display);
-    font-size: 1.7rem;
-    color: var(--bone);
-    margin-bottom: 0.2rem;
-  }
-
-  &__term {
-    font-family: var(--font-cn);
-    letter-spacing: 0.12em;
-    color: var(--gold);
-    margin-bottom: 0.75rem;
-  }
-
-  &__more {
-    margin-top: var(--space-lg);
-  }
-}
-
 .media {
   padding: var(--space-2xl) 0;
   background:
@@ -634,10 +524,6 @@ const spaces = [
 
 .faq {
   padding: var(--space-2xl) 0;
-
-  &__inner {
-    max-width: 52rem;
-  }
 }
 
 .close {
@@ -659,7 +545,6 @@ const spaces = [
 @media (max-width: 900px) {
   .hero__content,
   .aim__inner,
-  .spaces__grid,
   .media__grid {
     grid-template-columns: 1fr;
   }
@@ -677,13 +562,8 @@ const spaces = [
     padding-bottom: 3.5rem;
   }
 
-  .who__grid,
   .path__list {
     grid-template-columns: 1fr;
-  }
-
-  .who__seal {
-    display: none;
   }
 }
 </style>

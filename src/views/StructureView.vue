@@ -7,6 +7,27 @@ const colorMap: Record<string, string> = {
   jade: 'var(--jade-bright)',
   tablet: 'var(--gold)',
 }
+
+const spaces = [
+  {
+    key: 'earth',
+    name: 'Земля',
+    term: 'ци',
+    text: 'Пространство времени и конкретных объектов: тело, стол, ощущение — всё, что появляется и исчезает.',
+  },
+  {
+    key: 'human',
+    name: 'Человек',
+    term: 'цзин',
+    text: 'Граница между Небом и Землёй. Пространство усилий и перемен — опора и движущее начало культивации.',
+  },
+  {
+    key: 'heaven',
+    name: 'Небо',
+    term: 'шэнь',
+    text: 'Пространство вне времени: чистые структуры, сознание и идеи — природа Духа.',
+  },
+]
 </script>
 
 <template>
@@ -54,6 +75,34 @@ const colorMap: Record<string, string> = {
             </li>
           </ol>
         </div>
+      </div>
+    </section>
+
+    <section id="spaces" class="band" aria-labelledby="spaces-title">
+      <div class="container">
+        <header class="band__head">
+          <p class="section-label">Основа метода</p>
+          <h2 id="spaces-title" class="section-title">Три пространства</h2>
+          <p class="section-lead">
+            Метод стоит на взаимодействии Земли, Человека и Неба. Из него вырастают девять энергий и
+            сама идея эликсира. Опора практики — цзин.
+          </p>
+        </header>
+
+        <div class="spaces__grid">
+          <article
+            v-for="space in spaces"
+            :key="space.key"
+            :class="`spaces__item spaces__item--${space.key}`"
+          >
+            <p class="spaces__name">{{ space.name }}</p>
+            <p class="spaces__term">{{ space.term }}</p>
+            <p>{{ space.text }}</p>
+          </article>
+        </div>
+        <p class="spaces__more">
+          <a href="#jing">Почему цзин — центр практики</a>
+        </p>
       </div>
     </section>
 
@@ -214,10 +263,64 @@ const colorMap: Record<string, string> = {
   }
 }
 
+#spaces,
 #nine,
 #jing,
 #elixir {
   scroll-margin-top: calc(var(--header-h) + 1.25rem);
+}
+
+.spaces {
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-lg);
+  }
+
+  &__item {
+    padding-top: 1.15rem;
+    border-top: 2px solid rgba(230, 223, 210, 0.12);
+
+    &--earth {
+      border-top-color: var(--cinnabar);
+    }
+
+    &--human {
+      border-top-color: var(--gold);
+    }
+
+    &--heaven {
+      border-top-color: var(--jade-bright);
+    }
+  }
+
+  &__name {
+    font-family: var(--font-display);
+    font-size: 1.7rem;
+    color: var(--bone);
+    margin-bottom: 0.2rem;
+  }
+
+  &__term {
+    font-family: var(--font-cn);
+    letter-spacing: 0.12em;
+    color: var(--gold);
+    margin-bottom: 0.75rem;
+  }
+
+  &__more {
+    margin-top: var(--space-lg);
+
+    a {
+      color: var(--gold);
+      border-bottom: 1px solid rgba(184, 151, 74, 0.45);
+      font-size: 0.95rem;
+
+      &:hover {
+        color: var(--gold-bright);
+      }
+    }
+  }
 }
 
 .path {
@@ -475,6 +578,7 @@ const colorMap: Record<string, string> = {
 }
 
 @media (max-width: 900px) {
+  .spaces__grid,
   .nine__matrix {
     grid-template-columns: 1fr;
   }

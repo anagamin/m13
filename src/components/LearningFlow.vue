@@ -2,13 +2,13 @@
 const steps = [
   {
     n: '01',
-    title: 'Смотрит видео',
-    text: 'Урок показывает форму и порядок. Его можно остановить и повторить.',
+    title: 'Смотрит теоретический блок',
+    text: 'Информация помогает направить внимание в правильное русло',
   },
   {
     n: '02',
-    title: 'Запоминает теорию',
-    text: 'Рядом — объяснение простым языком: что это и зачем вам этот шаг.',
+    title: 'Смотрит практический блок',
+    text: 'Урок показывает форму и порядок. Его можно остановить и повторить',
   },
   {
     n: '03',
@@ -17,8 +17,8 @@ const steps = [
   },
   {
     n: '04',
-    title: 'Присылает отчёт',
-    text: 'Коротко: что вышло, где трудно, что изменилось в ощущении.',
+    title: 'Присылает отчет',
+    text: 'Видео запись практики с коротким описанием и вопросами',
   },
   {
     n: '05',
@@ -27,11 +27,10 @@ const steps = [
   },
 ]
 
-const months = [
+const months: { label: string; text?: string }[] = [
   { label: 'Сразу', text: 'Первые уроки открыты' },
-  { label: 'Месяц в подписке', text: 'Следующее видео' },
-  { label: 'Ещё месяц', text: 'И следующее' },
-  { label: 'Дальше', text: 'Цепочка продолжается' },
+  { label: 'После освоения', text: 'Следующие видео' },
+  { label: 'И так далее' },
 ]
 </script>
 
@@ -54,7 +53,7 @@ const months = [
       <ol class="flow__months">
         <li v-for="month in months" :key="month.label">
           <span>{{ month.label }}</span>
-          {{ month.text }}
+          <p v-if="month.text">{{ month.text }}</p>
         </li>
       </ol>
     </div>
@@ -131,7 +130,7 @@ const months = [
 
   &__months {
     display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 0.75rem;
     list-style: none;
     margin: 0;
@@ -146,10 +145,13 @@ const months = [
 
     span {
       display: block;
-      margin-bottom: 0.35rem;
       font-family: var(--font-display);
       font-size: 1.15rem;
       color: var(--bone);
+    }
+
+    p {
+      margin-top: 0.35rem;
     }
   }
 }

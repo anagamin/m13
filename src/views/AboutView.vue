@@ -30,6 +30,15 @@ import PageHero from '@/components/PageHero.vue'
         стороны. Это правка из той же практики: видно, где форма разошлась с принципом и что повторить
         иначе.
       </p>
+      <figure class="about__team">
+        <img
+          src="/images/team.jpg"
+          width="571"
+          height="808"
+          alt="Трое в традиционных одеждах сидят за чаем"
+        />
+        <figcaption>Носители передачи</figcaption>
+      </figure>
 
       <h2>Почему без имён</h2>
       <p>
@@ -59,6 +68,27 @@ import PageHero from '@/components/PageHero.vue'
     font-family: var(--font-cn);
     letter-spacing: 0.08em;
     color: var(--gold);
+  }
+
+  &__team {
+    margin: var(--space-lg) auto 0;
+    max-width: 26rem;
+
+    img {
+      width: 100%;
+      height: auto;
+      background: #f3eee4;
+      border: 1px solid rgba(230, 223, 210, 0.16);
+    }
+
+    figcaption {
+      margin-top: 0.75rem;
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
   }
 
   &__cta {

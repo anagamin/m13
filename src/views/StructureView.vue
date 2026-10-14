@@ -48,10 +48,6 @@ const spaces = [
           <header class="band__head path__head">
             <p class="section-label">Программа</p>
             <h1 id="path-title" class="section-title">Путь обучения</h1>
-            <p class="section-lead">
-              Четыре уровня культивации. На изображении путь идёт снизу вверх — от красного талисмана к
-              золотой скрижали. Рядом — содержание каждого уровня.
-            </p>
           </header>
 
           <ol class="levels">

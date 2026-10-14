@@ -52,25 +52,13 @@ const videos = mediaByIds(landingVideoIds)
         </div>
 
         <aside class="hero__preview reveal reveal-delay-2">
-          <button
-            class="hero__player"
-            type="button"
-            aria-label="Обзорное видео, скоро"
-            @click="activeTitle = 'Обзорное видео'"
-          >
-            <span class="hero__screen" aria-hidden="true">
-              <span class="hero__play">
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
-                  <path d="M8 5.5v13l11-6.5L8 5.5z" fill="currentColor" />
-                </svg>
-              </span>
-            </span>
-            <span class="hero__player-copy">
-              <span class="hero__player-kicker">Видео</span>
-              <span class="hero__player-title">Обзорное видео</span>
-              <span class="hero__player-note">Ролик появится здесь</span>
-            </span>
-          </button>
+          <video
+            class="hero__video"
+            src="/hero.mp4"
+            playsinline
+            controls
+            preload="metadata"
+          />
         </aside>
       </div>
     </section>
@@ -285,85 +273,12 @@ const videos = mediaByIds(landingVideoIds)
     min-width: 0;
   }
 
-  &__player {
-    display: flex;
-    flex-direction: column;
+  &__video {
+    display: block;
     width: 100%;
-    text-align: left;
+    height: auto;
+    background: #0a0d12;
     border: 1px solid rgba(230, 223, 210, 0.12);
-    background: rgba(7, 9, 12, 0.55);
-    transition: transform 0.4s var(--ease-out), border-color 0.4s var(--ease-out);
-
-    &:hover {
-      transform: translateY(-4px);
-      border-color: rgba(184, 151, 74, 0.45);
-
-      .hero__play {
-        transform: scale(1.08);
-        color: var(--gold-bright);
-      }
-    }
-  }
-
-  &__screen {
-    position: relative;
-    display: grid;
-    place-items: center;
-    aspect-ratio: 16 / 9;
-    background:
-      radial-gradient(ellipse at 30% 40%, rgba(184, 58, 42, 0.35), transparent 55%),
-      linear-gradient(145deg, #1a222e 0%, #0a0d12 100%);
-
-    &::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(180deg, transparent 45%, rgba(7, 9, 12, 0.45));
-      pointer-events: none;
-    }
-  }
-
-  &__play {
-    position: relative;
-    z-index: 1;
-    display: grid;
-    place-items: center;
-    width: 4.25rem;
-    height: 4.25rem;
-    border: 1px solid rgba(212, 181, 106, 0.55);
-    border-radius: 50%;
-    color: var(--gold);
-    background: rgba(7, 9, 12, 0.45);
-    transition: transform 0.4s var(--ease-out), color 0.4s var(--ease-out);
-
-    svg {
-      margin-left: 0.15rem;
-    }
-  }
-
-  &__player-copy {
-    display: flex;
-    flex-direction: column;
-    gap: 0.2rem;
-    padding: 0.95rem 1.05rem 1.1rem;
-  }
-
-  &__player-kicker {
-    font-size: 0.68rem;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: var(--gold);
-  }
-
-  &__player-title {
-    font-family: var(--font-display);
-    font-size: 1.35rem;
-    color: var(--bone);
-  }
-
-  &__player-note {
-    font-size: 0.9rem;
-    color: var(--ash);
   }
 
   &__cta {

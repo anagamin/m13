@@ -1,5 +1,52 @@
 <script setup lang="ts">
+import { nextTick, onUnmounted, ref, watch } from 'vue'
 import { energies, stages } from '@/data/stages'
+
+type LevelPopup = 'scheme' | 'review'
+
+const popup = ref<LevelPopup | null>(null)
+const closeRef = ref<HTMLButtonElement | null>(null)
+let popupOpener: HTMLElement | null = null
+
+const popupLabel: Record<LevelPopup, string> = {
+  scheme: 'Схема красного талисмана',
+  review: 'Обзор красного талисмана',
+}
+
+const reviewSrc =
+  'https://vkvideo.ru/video_ext.php?oid=-242302356&id=456239018&hash=d52e14999a3d43ae&hd=3'
+
+function openPopup(kind: LevelPopup, event: MouseEvent) {
+  popupOpener = event.currentTarget instanceof HTMLElement ? event.currentTarget : null
+  popup.value = kind
+}
+
+function closePopup() {
+  popup.value = null
+  popupOpener?.focus()
+  popupOpener = null
+}
+
+function onPopupKey(event: KeyboardEvent) {
+  if (event.key === 'Escape') closePopup()
+}
+
+watch(popup, async (value) => {
+  if (value) {
+    window.addEventListener('keydown', onPopupKey)
+    document.body.style.overflow = 'hidden'
+    await nextTick()
+    closeRef.value?.focus()
+  } else {
+    window.removeEventListener('keydown', onPopupKey)
+    document.body.style.overflow = ''
+  }
+})
+
+onUnmounted(() => {
+  window.removeEventListener('keydown', onPopupKey)
+  document.body.style.overflow = ''
+})
 
 const colorMap: Record<string, string> = {
   cinnabar: 'var(--cinnabar)',
@@ -59,7 +106,25 @@ const spaces = [
             >
               <span class="level__index" aria-hidden="true">{{ stage.order }}</span>
               <article class="level__card">
-                <p class="level__seal">{{ stage.nameCn }}</p>
+                <div class="level__top">
+                  <p class="level__seal">{{ stage.nameCn }}</p>
+                  <div v-if="stage.id === 'red-talisman'" class="level__links">
+                    <button
+                      type="button"
+                      class="level__link"
+                      @click="openPopup('scheme', $event)"
+                    >
+                      схема
+                    </button>
+                    <button
+                      type="button"
+                      class="level__link"
+                      @click="openPopup('review', $event)"
+                    >
+                      обзор
+                    </button>
+                  </div>
+                </div>
                 <h2 class="level__name">{{ stage.name }}</h2>
                 <p class="level__meta">
                   <em>{{ stage.donghua }}</em>
@@ -219,6 +284,38 @@ const spaces = [
         </div>
       </div>
     </section>
+
+    <div
+      v-if="popup"
+      class="lightbox"
+      role="dialog"
+      aria-modal="true"
+      :aria-label="popupLabel[popup]"
+      @click.self="closePopup"
+    >
+      <div class="lightbox__panel" :class="`lightbox__panel--${popup}`">
+        <div class="lightbox__bar">
+          <button ref="closeRef" class="lightbox__close" type="button" @click="closePopup">
+            Закрыть
+          </button>
+        </div>
+        <img
+          v-if="popup === 'scheme'"
+          class="lightbox__image"
+          src="/images/red-talisman-scheme.jpg"
+          alt="Схема красного талисмана"
+        />
+        <div v-else class="lightbox__frame">
+          <iframe
+            :src="reviewSrc"
+            title="Обзор красного талисмана"
+            allow="autoplay; encrypted-media; fullscreen; picture-in-picture; screen-wake-lock;"
+            frameborder="0"
+            allowfullscreen
+          />
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -411,12 +508,38 @@ const spaces = [
     border-top: 2px solid var(--stage-color);
   }
 
+  &__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    margin-bottom: 0.35rem;
+  }
+
   &__seal {
     font-family: var(--font-cn);
     font-size: 0.95rem;
     letter-spacing: 0.16em;
     color: var(--stage-color);
-    margin-bottom: 0.35rem;
+  }
+
+  &__links {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    margin-left: auto;
+  }
+
+  &__link {
+    color: var(--gold);
+    font-size: 0.82rem;
+    letter-spacing: 0.04em;
+    line-height: 1.2;
+    border-bottom: 1px solid rgba(184, 151, 74, 0.45);
+
+    &:hover {
+      color: var(--gold-bright);
+    }
   }
 
   &__name {
@@ -549,6 +672,73 @@ const spaces = [
   strong {
     color: var(--gold);
     font-weight: 500;
+  }
+}
+
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: grid;
+  place-items: center;
+  padding: 1.25rem;
+  background: rgba(7, 9, 12, 0.88);
+  backdrop-filter: blur(8px);
+  animation: fade-in 0.3s ease;
+
+  &__panel {
+    position: relative;
+
+    &--scheme {
+      max-width: min(100%, 72rem);
+    }
+
+    &--review {
+      width: min(100%, 56rem);
+    }
+  }
+
+  &__bar {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 0.55rem;
+  }
+
+  &__close {
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ash);
+
+    &:hover {
+      color: var(--bone);
+    }
+  }
+
+  &__image {
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: calc(100dvh - 5rem);
+    object-fit: contain;
+    border: 1px solid rgba(201, 168, 76, 0.38);
+    background: #05070a;
+  }
+
+  &__frame {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: #05070a;
+    border: 1px solid rgba(230, 223, 210, 0.1);
+
+    iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
   }
 }
 

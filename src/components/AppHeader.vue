@@ -107,19 +107,34 @@ onUnmounted(() => {
   inset: 0 0 auto;
   z-index: 100;
   height: var(--header-h);
-  transition:
-    background 0.4s var(--ease-out),
-    border-color 0.4s var(--ease-out),
-    backdrop-filter 0.4s var(--ease-out);
 
-  &--solid,
-  &--compact {
+  // Blur lives on a layer behind the bar. backdrop-filter on the header
+  // itself would become the containing block for the fixed mobile nav
+  // and collapse it to the bar height, so page content covers the menu.
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background: transparent;
+    border-bottom: 1px solid transparent;
+    transition:
+      background 0.4s var(--ease-out),
+      border-color 0.4s var(--ease-out),
+      backdrop-filter 0.4s var(--ease-out);
+  }
+
+  &--solid::before,
+  &--compact::before {
     background: rgba(7, 9, 12, 0.92);
     backdrop-filter: blur(16px);
     border-bottom: 1px solid rgba(230, 223, 210, 0.06);
   }
 
   &__inner {
+    position: relative;
+    z-index: 1;
     width: min(100% - 2.5rem, var(--max-w));
     margin-inline: auto;
     display: flex;
@@ -269,12 +284,13 @@ onUnmounted(() => {
   .nav {
     display: none;
     position: fixed;
+    z-index: 1;
     inset: var(--header-h) 0 0;
     padding: 1rem 1.25rem 2rem;
     flex-direction: column;
     align-items: stretch;
     gap: 0.25rem;
-    background: rgba(7, 9, 12, 0.98);
+    background: var(--ink);
     overflow: auto;
 
     &--open {

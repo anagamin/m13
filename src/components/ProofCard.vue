@@ -5,8 +5,8 @@ const props = defineProps<{
   item: {
     id: string
     title: string
-    subtitle: string
-    duration: string
+    subtitle?: string
+    duration?: string
     type?: 'video' | 'audio'
     free?: boolean
     tags?: string[]
@@ -32,13 +32,13 @@ const isAudio = computed(() => props.item.type === 'audio')
           />
         </svg>
       </span>
-      <span class="proof__duration">{{ item.duration }}</span>
+      <span v-if="item.duration" class="proof__duration">{{ item.duration }}</span>
       <span v-if="item.free" class="proof__badge">Бесплатно</span>
     </div>
     <div class="proof__body">
       <p class="proof__type">{{ isAudio ? 'Аудио' : 'Видео' }}</p>
       <h3 class="proof__title">{{ item.title }}</h3>
-      <p class="proof__sub">{{ item.subtitle }}</p>
+      <p v-if="item.subtitle" class="proof__sub">{{ item.subtitle }}</p>
       <p v-if="item.tags?.length" class="proof__tags">
         <span v-for="tag in item.tags" :key="tag">{{ tag }}</span>
       </p>

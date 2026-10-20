@@ -3,17 +3,17 @@ import { computed, ref } from 'vue'
 import MediaModal from '@/components/MediaModal.vue'
 import PageHero from '@/components/PageHero.vue'
 import ProofCard from '@/components/ProofCard.vue'
-import { mediaVideos } from '@/data/site'
+import { mediaVideos, type MediaVideo } from '@/data/site'
 
 const activeTag = ref('Все')
-const activeTitle = ref<string | null>(null)
+const activeVideo = ref<MediaVideo | null>(null)
 
-const tags = computed(() => ['Все', ...new Set(mediaVideos.flatMap((video) => video.tags))])
+const tags = computed(() => ['Все', ...new Set(mediaVideos.flatMap((video) => video.tags ?? []))])
 
 const visible = computed(() =>
   activeTag.value === 'Все'
     ? mediaVideos
-    : mediaVideos.filter((video) => video.tags.includes(activeTag.value)),
+    : mediaVideos.filter((video) => video.tags?.includes(activeTag.value)),
 )
 </script>
 
@@ -22,12 +22,12 @@ const visible = computed(() =>
     <PageHero
       label="Медиа"
       title="Видео по темам"
-      lead="Короткая библиотека: основы, путь, энергии, практика и передача. Ролик открывается здесь же."
+      lead="Видео о методе. Ролик открывается здесь же."
     />
 
     <section class="library">
       <div class="container">
-        <div class="library__tags" role="tablist" aria-label="Темы видео">
+        <div v-if="tags.length > 1" class="library__tags" role="tablist" aria-label="Темы видео">
           <button
             v-for="tag in tags"
             :key="tag"
@@ -47,13 +47,13 @@ const visible = computed(() =>
             v-for="video in visible"
             :key="video.id"
             :item="{ ...video, type: 'video' }"
-            @play="activeTitle = video.title"
+            @play="activeVideo = video"
           />
         </div>
       </div>
     </section>
 
-    <MediaModal :title="activeTitle" @close="activeTitle = null" />
+    <MediaModal :video="activeVideo" @close="activeVideo = null" />
   </div>
 </template>
 

@@ -4,12 +4,12 @@ import FaqList from '@/components/FaqList.vue'
 import LearningFlow from '@/components/LearningFlow.vue'
 import MediaModal from '@/components/MediaModal.vue'
 import ProofCard from '@/components/ProofCard.vue'
-import { faq, formatRub, mediaByIds, landingVideoIds, subscriptionPriceRub } from '@/data/site'
+import { faq, formatRub, mainMediaVideos, subscriptionPriceRub, type MediaVideo } from '@/data/site'
 import { stages } from '@/data/stages'
 
 const heroImageOk = ref(true)
-const activeTitle = ref<string | null>(null)
-const videos = mediaByIds(landingVideoIds)
+const activeVideo = ref<MediaVideo | null>(null)
+const videos = mainMediaVideos
 </script>
 
 <template>
@@ -143,14 +143,14 @@ const videos = mediaByIds(landingVideoIds)
         <p class="section-label">Медиа</p>
         <h2 class="section-title">С чего посмотреть</h2>
         <p class="section-lead">
-          Три вводных видео. Остальная библиотека — на странице «Медиа», по темам.
+          Вводные видео. Полная библиотека — на странице «Медиа».
         </p>
         <div class="media__grid">
           <ProofCard
             v-for="video in videos"
             :key="video.id"
             :item="{ ...video, type: 'video' }"
-            @play="activeTitle = video.title"
+            @play="activeVideo = video"
           />
         </div>
         <RouterLink to="/media" class="text-link media__all">Все видео</RouterLink>
@@ -176,7 +176,7 @@ const videos = mediaByIds(landingVideoIds)
       </div>
     </section>
 
-    <MediaModal :title="activeTitle" @close="activeTitle = null" />
+    <MediaModal :video="activeVideo" @close="activeVideo = null" />
   </div>
 </template>
 

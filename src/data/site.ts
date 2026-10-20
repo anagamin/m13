@@ -1,3 +1,5 @@
+import mediaJson from './media.json'
+
 export const subscriptionPriceRub = 1500
 
 export function formatRub(value: number) {
@@ -56,105 +58,17 @@ export const faq: FaqItem[] = [
 export interface MediaVideo {
   id: string
   title: string
-  subtitle: string
-  duration: string
-  tags: string[]
+  src: string
+  /** 1 — показывать в блоке «Медиа» на главной */
+  is_main: 0 | 1
+  subtitle?: string
+  duration?: string
+  tags?: string[]
 }
 
-export const landingVideoIds = ['what', 'map', 'nine'] as const
+export const mediaVideos = mediaJson as MediaVideo[]
 
-export const mediaVideos: MediaVideo[] = [
-  {
-    id: 'what',
-    title: 'Что такое культивация',
-    subtitle: 'Чем метод отличается от описания и с чего начинается практика',
-    duration: '12:40',
-    tags: ['Основы'],
-  },
-  {
-    id: 'map',
-    title: 'Карта пути',
-    subtitle: 'Четыре уровня: от красного талисмана к золотой скрижали',
-    duration: '18:05',
-    tags: ['Путь'],
-  },
-  {
-    id: 'nine',
-    title: 'Девять энергий',
-    subtitle: 'Как из трёх пространств собирается рабочая схема метода',
-    duration: '16:20',
-    tags: ['Энергии'],
-  },
-  {
-    id: 'jing',
-    title: 'Почему цзин — центр практики',
-    subtitle: 'Цзин как мера плотности, а не третья энергия в очереди',
-    duration: '14:10',
-    tags: ['Энергии', 'Основы'],
-  },
-  {
-    id: 'spaces',
-    title: 'Три пространства',
-    subtitle: 'Земля, Человек и Небо — опора, на которой стоит метод',
-    duration: '11:30',
-    tags: ['Основы'],
-  },
-  {
-    id: 'elixir',
-    title: 'Что такое эликсир',
-    subtitle: 'Ртуть, сера и киноварь: зачем культивация создаёт и усваивает эликсир',
-    duration: '13:45',
-    tags: ['Энергии'],
-  },
-  {
-    id: 'lesson',
-    title: 'Как устроен урок',
-    subtitle: 'Видео, теория, упражнение, отчёт и ответ',
-    duration: '08:50',
-    tags: ['Практика'],
-  },
-  {
-    id: 'report',
-    title: 'Как писать отчёт',
-    subtitle: 'Что наставнику нужно видеть, чтобы поправить практику',
-    duration: '07:15',
-    tags: ['Практика'],
-  },
-  {
-    id: 'red',
-    title: 'Красный талисман',
-    subtitle: 'Задачи первого уровня: подготовка тела и сгущение ци',
-    duration: '15:40',
-    tags: ['Путь'],
-  },
-  {
-    id: 'white',
-    title: 'Белая пагода',
-    subtitle: 'Заложение основы и второе, алхимическое тело',
-    duration: '17:05',
-    tags: ['Путь'],
-  },
-  {
-    id: 'demo',
-    title: 'Сгущение ци-цзин',
-    subtitle: 'Как выглядит практика первого уровня',
-    duration: '09:32',
-    tags: ['Практика'],
-  },
-  {
-    id: 'transmission',
-    title: 'О передаче знания',
-    subtitle: 'Почему метод пришёл устно и почему мы не называем имён',
-    duration: '21:10',
-    tags: ['Передача'],
-  },
-]
-
-export function mediaByIds(ids: readonly string[]) {
-  return ids
-    .map((id) => mediaVideos.find((video) => video.id === id))
-    .filter((video): video is MediaVideo => Boolean(video))
-}
+export const mainMediaVideos = mediaVideos.filter((video) => video.is_main === 1)
 
 /** Дополнительные блоки. Ключ — id практики из учебной программы. */
 export const extraPriceRub: Record<string, number> = {

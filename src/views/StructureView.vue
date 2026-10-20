@@ -694,7 +694,9 @@ const spaces = [
     }
 
     &--review {
-      width: min(100%, 56rem);
+      // Обзор — вертикальное видео. Ширина считается от свободной высоты,
+      // чтобы кадр 9:16 заполнял экран и не сжимался в полоску внутри 16:9.
+      width: min(calc(100vw - 2.5rem), calc((100dvh - 6rem) * 9 / 16), 32rem);
     }
   }
 
@@ -728,7 +730,7 @@ const spaces = [
   &__frame {
     position: relative;
     width: 100%;
-    aspect-ratio: 16 / 9;
+    aspect-ratio: 9 / 16;
     background: #05070a;
     border: 1px solid rgba(230, 223, 210, 0.1);
 

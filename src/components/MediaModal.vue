@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { nextTick, onUnmounted, ref, watch } from 'vue'
-import CinnabarSeal from '@/components/CinnabarSeal.vue'
 
-const props = defineProps<{ title: string | null }>()
+const props = defineProps<{
+  video: { title: string; src: string } | null
+}>()
 const emit = defineEmits<{ close: [] }>()
 
 const closeRef = ref<HTMLButtonElement | null>(null)
@@ -12,9 +13,9 @@ function onKey(event: KeyboardEvent) {
 }
 
 watch(
-  () => props.title,
-  async (title) => {
-    if (title) {
+  () => props.video,
+  async (video) => {
+    if (video) {
       window.addEventListener('keydown', onKey)
       document.body.style.overflow = 'hidden'
       await nextTick()
@@ -34,7 +35,7 @@ onUnmounted(() => {
 
 <template>
   <div
-    v-if="title"
+    v-if="video"
     class="player"
     role="dialog"
     aria-modal="true"
@@ -45,11 +46,15 @@ onUnmounted(() => {
       <button ref="closeRef" class="player__close" type="button" @click="emit('close')">
         Закрыть
       </button>
-      <div class="player__placeholder">
-        <CinnabarSeal size="md" char="觀" />
-        <p>Видео подключится позже. Сейчас это карточка библиотеки.</p>
-        <p class="player__title">{{ title }}</p>
+      <div class="player__frame">
+        <iframe
+          :src="video.src"
+          :title="video.title"
+          allow="autoplay; encrypted-media; fullscreen; picture-in-picture; screen-wake-lock;"
+          allowfullscreen
+        />
       </div>
+      <p class="player__title">{{ video.title }}</p>
     </div>
   </div>
 </template>
@@ -66,7 +71,7 @@ onUnmounted(() => {
   animation: fade-in 0.3s ease;
 
   &__inner {
-    width: min(100% - 2rem, 42rem);
+    width: min(100% - 2rem, 64rem);
     background: var(--ink-soft);
     border: 1px solid rgba(230, 223, 210, 0.1);
     padding: var(--space-lg);
@@ -84,20 +89,29 @@ onUnmounted(() => {
     }
   }
 
-  &__placeholder {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
-    padding: 3rem 1rem 2rem;
-    text-align: center;
+  &__frame {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: #000;
     clear: both;
+
+    iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
   }
 
   &__title {
+    margin-top: 1rem;
     color: var(--gold);
     font-family: var(--font-display);
     font-size: 1.45rem;
+    text-align: center;
+    clear: both;
   }
 }
 </style>

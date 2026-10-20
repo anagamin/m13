@@ -15,6 +15,19 @@ const visible = computed(() =>
     ? mediaVideos
     : mediaVideos.filter((video) => video.tags?.includes(activeTag.value)),
 )
+
+const library = computed(() => visible.value.filter((video) => !video.section))
+
+const sections = computed(() => {
+  const groups = new Map<string, MediaVideo[]>()
+  for (const video of visible.value) {
+    if (!video.section) continue
+    const list = groups.get(video.section) ?? []
+    list.push(video)
+    groups.set(video.section, list)
+  }
+  return [...groups.entries()].map(([title, videos]) => ({ title, videos }))
+})
 </script>
 
 <template>
@@ -44,12 +57,24 @@ const visible = computed(() =>
 
         <div class="library__grid">
           <ProofCard
-            v-for="video in visible"
+            v-for="video in library"
             :key="video.id"
             :item="{ ...video, type: 'video' }"
             @play="activeVideo = video"
           />
         </div>
+
+        <section v-for="group in sections" :key="group.title" class="library__section">
+          <h2 class="library__heading">{{ group.title }}</h2>
+          <div class="library__grid">
+            <ProofCard
+              v-for="video in group.videos"
+              :key="video.id"
+              :item="{ ...video, type: 'video' }"
+              @play="activeVideo = video"
+            />
+          </div>
+        </section>
       </div>
     </section>
 
@@ -91,6 +116,16 @@ const visible = computed(() =>
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: var(--space-md);
+  }
+
+  &__section {
+    margin-top: var(--space-2xl);
+  }
+
+  &__heading {
+    font-size: clamp(1.7rem, 3vw, 2.4rem);
+    color: var(--bone);
+    margin-bottom: var(--space-md);
   }
 }
 

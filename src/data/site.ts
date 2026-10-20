@@ -61,6 +61,8 @@ export interface MediaVideo {
   src: string
   /** 1 — показывать в блоке «Медиа» на главной */
   is_main: 0 | 1
+  /** Заголовок блока на странице «Медиа». Без секции ролик остаётся в общей сетке. */
+  section?: string
   subtitle?: string
   duration?: string
   tags?: string[]

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { nextTick, onUnmounted, ref, watch } from 'vue'
+import { mediaVideos } from '@/data/site'
 import { energies, stages } from '@/data/stages'
 
 type LevelPopup = 'scheme' | 'review'
@@ -13,8 +14,7 @@ const popupLabel: Record<LevelPopup, string> = {
   review: 'Обзор красного талисмана',
 }
 
-const reviewSrc =
-  'https://vkvideo.ru/video_ext.php?oid=-242302356&id=456239018&hash=d52e14999a3d43ae&hd=3'
+const reviewSrc = mediaVideos.find((video) => video.id === 'red-talisman-review')!.src
 
 function openPopup(kind: LevelPopup, event: MouseEvent) {
   popupOpener = event.currentTarget instanceof HTMLElement ? event.currentTarget : null
